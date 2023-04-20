@@ -30,9 +30,7 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(3001, () => {
-  console.log('Socket Server is running! (backend)')
-})
+server.listen(3000, '127.0.0.1')
 
 app.use(Express.json())
 
