@@ -28,9 +28,7 @@ io.on('connection', (socket) => {
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data)
   })
-}).listen(server)
-
-server.listen(3001)
+})
 
 app.use(Express.json())
 
@@ -48,4 +46,8 @@ app.use(Express.static('./public'))
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
+})
+
+http.listen(port, () => {
+  console.log(`HTTP listening on port ${port}`)
 })
