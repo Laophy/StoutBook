@@ -28,6 +28,11 @@ io.on('connection', (socket) => {
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data)
   })
+
+  // Whenever someone disconnects this piece of code executed
+  socket.on('disconnect', function () {
+    console.log('A user disconnected')
+  })
 })
 
 app.use(Express.json())
@@ -48,6 +53,6 @@ app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })
 
-http.listen(port, () => {
+server.listen(port, () => {
   console.log(`HTTP listening on port ${port}`)
 })
