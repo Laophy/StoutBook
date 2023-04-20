@@ -28,9 +28,9 @@ io.on('connection', (socket) => {
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data)
   })
-})
+}).listen(server)
 
-io.listen(3001)
+server.listen(3001)
 
 app.use(Express.json())
 
