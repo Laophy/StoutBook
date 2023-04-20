@@ -1,0 +1,42 @@
+{
+  "name": "StoutBook",
+  "version": "0.0.1",
+  "description": "A real-time text chatting application. StoutBook.",
+  "main": "server/server.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "client": "esbuild --bundle --minify --target=es6 --outdir=public client/main.jsx",
+    "client:dev": "esbuild --watch --bundle --sourcemap --target=es6 --outdir=public client/main.jsx",
+    "server": "node server/server.js",
+    "server:dev": "nodemon server/server.js dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordan Pessman",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.17.11",
+    "eslint": "^8.36.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^15.6.1",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1"
+  }
+}
