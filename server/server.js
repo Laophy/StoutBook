@@ -62,6 +62,10 @@ app.get('/healthcheck', async (_req, res, _next) => {
   }
 })
 
+app.get('/', (req, res) => {
+  res.status(200).send('Healthy code!')
+})
+
 app.listen(port, () => {
-  console.log(`Listening on port http://localhost:${port}`)
+  console.log('Health check server is now up on port: ' + port)
 })
