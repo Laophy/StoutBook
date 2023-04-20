@@ -10,7 +10,8 @@
     "client:dev": "esbuild --watch --bundle --sourcemap --target=es6 --outdir=public client/main.jsx",
     "server": "node server/server.js",
     "server:dev": "nodemon server/server.js dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "author": "Jordan Pessman",
   "license": "MIT",
@@ -23,7 +24,8 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "webpack-cli": "^5.0.1"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -37,6 +39,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io": "^4.6.1",
-    "socket.io-client": "^4.6.1"
+    "socket.io-client": "^4.6.1",
+    "webpack": "^5.80.0"
   }
 }
