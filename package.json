@@ -10,8 +10,7 @@
     "client:dev": "esbuild --watch --bundle --sourcemap --target=es6 --outdir=public client/main.jsx",
     "server": "node server/server.js",
     "server:dev": "nodemon server/server.js dev",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jordan Pessman",
   "license": "MIT",
@@ -39,7 +38,6 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io": "^4.6.1",
-    "socket.io-client": "^4.6.1",
-    "webpack": "^5.80.0"
+    "socket.io-client": "^4.6.1"
   }
 }
