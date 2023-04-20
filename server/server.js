@@ -2,15 +2,24 @@ import Express from 'express'
 
 import APIRouter from './api/apiRoutes.js'
 import cors from 'cors'
+import http from 'http'
 import { Server } from 'socket.io'
 
 // Local port
 const port = 3000
+
 const app = new Express()
 
 app.use(cors())
 
-const io = new Server(3001).listen(3001)
+const server = http.createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: 'ws://localhost:3000',
+    methods: ['GET', 'POST']
+  }
+})
 
 io.on('connection', (socket) => {
   // Someone opens the website and opens the client
@@ -19,6 +28,12 @@ io.on('connection', (socket) => {
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data)
   })
+})
+
+io.listen(3001)
+
+server.listen(3001, () => {
+  console.log('Server listening on port 3001')
 })
 
 app.use(Express.json())
