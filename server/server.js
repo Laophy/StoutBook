@@ -48,7 +48,19 @@ app.use('/data', APIRouter)
 // Final static file route
 app.use(Express.static('./public'))
 
-app.use(Express.static('/healthcheck'))
+app.get('/healthcheck', async (_req, res, _next) => {
+  const healthcheck = {
+    uptime: process.uptime(),
+    message: 'OK',
+    timestamp: Date.now()
+  }
+  try {
+    res.send(healthcheck)
+  } catch (error) {
+    healthcheck.message = error
+    res.status(503).send()
+  }
+})
 
 app.listen(port, () => {
   console.log(`Listening on port http://localhost:${port}`)
