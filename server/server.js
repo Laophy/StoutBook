@@ -16,7 +16,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
   cors: {
-    origin: 'https://laophy.com/:3000',
+    origin: 'http://0.0.0.0:3000',
     methods: ['GET', 'POST']
   }
 })
@@ -49,5 +49,5 @@ app.use('/data', APIRouter)
 app.use(Express.static('./public'))
 
 app.listen(port, () => {
-  console.log(`Listening on port http://localhost:${port}`)
+  console.log(`Listening on port http://0.0.0.0:${port}`)
 })

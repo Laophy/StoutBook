@@ -7,7 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2'
 // Client socket connection
 import io from 'socket.io-client'
 import ChatCard from './ChatCard'
-const socket = io.connect('https://laophy.com/:3001')
+const socket = io.connect('http://0.0.0.0:3001')
 
 export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
