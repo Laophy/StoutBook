@@ -2,12 +2,12 @@
   "name": "StoutBook",
   "version": "0.0.1",
   "description": "A real-time text chatting application. StoutBook.",
-  "main": "client/main.js",
+  "main": "client/main.jsx",
   "type": "module",
   "private": true,
   "scripts": {
-    "client": "esbuild --bundle --minify --target=es6 --outdir=public client/main.js",
-    "client:dev": "esbuild --watch --bundle --sourcemap --target=es6 --outdir=public client/main.js",
+    "client": "esbuild --bundle --minify --target=es6 --outdir=public client/main.jsx",
+    "client:dev": "esbuild --watch --bundle --sourcemap --target=es6 --outdir=public client/main.jsx",
     "server": "node server/server.js",
     "server:dev": "nodemon server/server.js dev",
     "test": "echo \"Error: no test specified\" && exit 1"
