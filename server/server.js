@@ -11,7 +11,9 @@ const app = new Express()
 
 app.use(cors())
 
-const io = new Server(3001)
+const server = app.listen(3000)
+
+const io = new Server(3001).listen(server)
 
 io.on('connection', (socket) => {
   // Someone opens the website and opens the client
