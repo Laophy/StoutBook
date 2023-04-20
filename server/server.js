@@ -16,7 +16,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
   cors: {
-    origin: 'https://laophy.com/',
+    origin: 'http://localhost:3000',
     methods: ['GET', 'POST']
   }
 })
@@ -30,7 +30,9 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(3000, '127.0.0.1')
+server.listen(3001, () => {
+  console.log('Socket Server is running! (backend)')
+})
 
 app.use(Express.json())
 
@@ -47,5 +49,5 @@ app.use('/data', APIRouter)
 app.use(Express.static('./public'))
 
 app.listen(port, () => {
-  console.log(`Listening on port http://0.0.0.0:${port}`)
+  console.log(`Listening on port http://localhost:${port}`)
 })
