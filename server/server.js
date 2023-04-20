@@ -2,7 +2,6 @@ import Express from 'express'
 
 import APIRouter from './api/apiRoutes.js'
 import cors from 'cors'
-import http from 'http'
 import { Server } from 'socket.io'
 
 // Local port
@@ -12,14 +11,7 @@ const app = new Express()
 
 app.use(cors())
 
-const server = http.createServer(app)
-
-const io = new Server(server, {
-  cors: {
-    origin: 'http://localhost:3000',
-    methods: ['GET', 'POST']
-  }
-})
+const io = new Server(3001)
 
 io.on('connection', (socket) => {
   // Someone opens the website and opens the client
@@ -28,10 +20,6 @@ io.on('connection', (socket) => {
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data)
   })
-})
-
-server.listen(3001, () => {
-  console.log('Socket Server is running! (backend)')
 })
 
 app.use(Express.json())
@@ -49,5 +37,5 @@ app.use('/data', APIRouter)
 app.use(Express.static('./public'))
 
 app.listen(port, () => {
-  console.log(`Listening on port http://localhost:${port}`)
+  console.log(`App listening on port ${port}`)
 })
