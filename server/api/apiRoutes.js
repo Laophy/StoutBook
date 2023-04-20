@@ -3,7 +3,7 @@ import Express from 'express'
 // Create a new router
 const DataRouter = new Express.Router()
 
-DataRouter.get('/', async (_req, res, _next) => {
+DataRouter.get('/healthcheck', async (_req, res, _next) => {
   const healthcheck = {
     uptime: process.uptime(),
     message: 'OK',

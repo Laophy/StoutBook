@@ -48,6 +48,8 @@ app.use('/data', APIRouter)
 // Final static file route
 app.use(Express.static('./public'))
 
+app.use(Express.static('/healthcheck'))
+
 app.listen(port, () => {
   console.log(`Listening on port http://localhost:${port}`)
 })
