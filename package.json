@@ -2,11 +2,11 @@
   "name": "StoutBook",
   "version": "0.0.1",
   "description": "A real-time text chatting application. StoutBook.",
-  "main": "client/main.jsx",
+  "main": "server/server.js",
   "type": "module",
   "private": true,
   "scripts": {
-    "client": "esbuild --bundle --minify --target=es6 --outdir=public client/main.jsx",
+    "client": "esbuild --bundle --outdir=public client/main.jsx",
     "client:dev": "esbuild --watch --bundle --sourcemap --target=es6 --outdir=public client/main.jsx",
     "server": "node server/server.js",
     "server:dev": "nodemon server/server.js dev",
