@@ -6,14 +6,11 @@ import { Server } from 'socket.io'
 
 // Local port
 const port = 3000
-
 const app = new Express()
 
 app.use(cors())
 
-const server = app.listen(3000)
-
-const io = new Server(3001).listen(server)
+const io = new Server(3001).listen(3001)
 
 io.on('connection', (socket) => {
   // Someone opens the website and opens the client
