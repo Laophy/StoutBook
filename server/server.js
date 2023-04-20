@@ -42,10 +42,6 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/health', (req, res) => {
-  res.status(200).send('Ok');
-});
-
 // Attach the movie routes
 app.use('/data', APIRouter)
 
