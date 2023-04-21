@@ -46406,7 +46406,7 @@ Please use another name.` : formatMuiErrorMessage(18));
   }
 
   // client/components/ChatRoom.jsx
-  var socket = lookup2.connect("laophy.com:3001", {
+  var socket = lookup2.connect("laophy.com", {
     reconnectionDelay: 1e3,
     reconnection: true,
     reconnectionAttemps: 10,

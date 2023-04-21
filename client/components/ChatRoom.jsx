@@ -7,7 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2'
 // Client socket connection
 import io from 'socket.io-client'
 import ChatCard from './ChatCard'
-const socket = io.connect('laophy.com:3001', {
+const socket = io.connect('laophy.com', {
   reconnectionDelay: 1000,
   reconnection: true,
   reconnectionAttemps: 10,
