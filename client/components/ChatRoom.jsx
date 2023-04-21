@@ -5,9 +5,14 @@ import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Unstable_Grid2'
 
 // Client socket connection
-import io from 'socket.io-client'
+import { Manager } from 'socket.io-client'
 import ChatCard from './ChatCard'
-const socket = io('https//laophy.com:3001')
+
+const manager = new Manager('https://laophy.com:3001', {
+  autoConnect: true
+})
+
+const socket = manager.socket('/')
 
 export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
