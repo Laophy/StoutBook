@@ -1,19 +1,11 @@
 import Express from 'express'
 
 import APIRouter from './api/apiRoutes.js'
-import cors from 'cors'
-import http from 'http'
 import { Server } from 'socket.io'
 
 // Local port
 const port = 3000
-
 const app = new Express()
-
-app.use(cors())
-
-const server = http.createServer(app)
-
 const io = new Server(3001)
 
 io.on('connection', (socket) => {
@@ -30,8 +22,6 @@ io.on('connection', (socket) => {
   })
 })
 
-app.use(Express.json())
-
 // Universal logging route
 app.use((req, res, next) => {
   console.log(`${req.method} request at ${req.url}`)
@@ -41,13 +31,11 @@ app.use((req, res, next) => {
 // Attach the movie routes
 app.use('/data', APIRouter)
 
+app.use(Express.json())
+
 // Final static file route
 app.use(Express.static('./public'))
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`)
-})
-
-server.listen(3001, () => {
-  console.log(`HTTP listening on port ${port}`)
 })
