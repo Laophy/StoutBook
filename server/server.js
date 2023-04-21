@@ -16,7 +16,7 @@ const server = http.createServer(app)
 
 const io = new Server(server, {
   cors: {
-    origin: 'ws://localhost:3001',
+    origin: '/',
     methods: ['GET', 'POST']
   }
 })
