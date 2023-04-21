@@ -16,7 +16,7 @@ const server = http.createServer(app)
 
 const io = new Server(server)
 
-io.on('connection', (socket) => {
+io.sockets.on('connection', (socket) => {
   // Someone opens the website and opens the client
   console.log(`User connected: ${socket.id}`)
 
