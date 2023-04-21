@@ -8,8 +8,8 @@ import Grid from '@mui/material/Unstable_Grid2'
 import { io } from 'socket.io-client'
 import ChatCard from './ChatCard'
 
-const domain = 'https://laophy.com'
-const socket = io.connect(domain, { transports: ['websocket'] })
+const domain = 'wss://laophy.com:3001'
+const socket = io(domain, { transports: ['websocket'] })
 
 export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
