@@ -12,12 +12,9 @@ const app = new Express()
 
 app.use(cors())
 
-const server = http.createServer(app)
-
-const io = new Server(server, {
+const io = new Server(3001, {
   cors: {
-    origin: 'ws://localhost:3000',
-    methods: ['GET', 'POST']
+    origin: ['https://laophy.com:3001']
   }
 })
 
@@ -45,9 +42,5 @@ app.use('/data', APIRouter)
 app.use(Express.static('./public'))
 
 app.listen(port, () => {
-  console.log(`Listening on port http://localhost:${port}`)
-})
-
-server.listen(() => {
-  console.log('Listening on port HTTP 3001')
+  console.log(`Listening on port ${port}`)
 })

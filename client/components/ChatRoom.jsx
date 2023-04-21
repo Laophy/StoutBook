@@ -7,14 +7,9 @@ import Grid from '@mui/material/Unstable_Grid2'
 // Client socket connection
 import io from 'socket.io-client'
 import ChatCard from './ChatCard'
-const socket = io.connect('laophy.com', {
-  reconnectionDelay: 1000,
-  reconnection: true,
-  reconnectionAttemps: 10,
-  transports: ['websocket', 'polling'],
-  agent: false,
-  upgrade: false,
-  rejectUnauthorized: false
+const socket = io('https://laophy.com:3001')
+socket.on('connect', () => {
+  console.log('You connected with id: ' + socket.id)
 })
 
 export default function ChatRoom (props) {

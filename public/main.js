@@ -46406,14 +46406,9 @@ Please use another name.` : formatMuiErrorMessage(18));
   }
 
   // client/components/ChatRoom.jsx
-  var socket = lookup2.connect("laophy.com", {
-    reconnectionDelay: 1e3,
-    reconnection: true,
-    reconnectionAttemps: 10,
-    transports: ["websocket", "polling"],
-    agent: false,
-    upgrade: false,
-    rejectUnauthorized: false
+  var socket = lookup2("https://laophy.com:3001");
+  socket.on("connect", () => {
+    console.log("You connected with id: " + socket.id);
   });
   function ChatRoom(props) {
     const [message, setMessage] = import_react15.default.useState("");
