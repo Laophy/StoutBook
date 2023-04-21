@@ -3,7 +3,7 @@ import Express from 'express'
 import APIRouter from './api/apiRoutes.js'
 import cors from 'cors'
 import { Server } from 'socket.io'
-import http from 'http'
+import https from 'https'
 
 // Local port
 const port = 3000
@@ -12,10 +12,12 @@ const app = new Express()
 app.use(cors())
 app.use(Express.json())
 
-const server = http.createServer(app)
+const server = https.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://laophy.com:3001', 'https://laophy.com:3000']
+    origin: '*',
+    methods: 'GET,PUT,POST,DELETE,OPTIONS'.split(','),
+    credentials: true
   }
 })
 
