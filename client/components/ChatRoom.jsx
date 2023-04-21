@@ -9,7 +9,7 @@ import { io } from 'socket.io-client'
 import ChatCard from './ChatCard'
 
 const domain = 'https://laophy.com'
-const socket = io(domain, { transports: ['websocket'] })
+const socket = io.connect(domain, { transports: ['websocket'] })
 
 export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
