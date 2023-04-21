@@ -8,7 +8,6 @@ import Grid from '@mui/material/Unstable_Grid2'
 import { io } from 'socket.io-client'
 import ChatCard from './ChatCard'
 
-
 export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([])
