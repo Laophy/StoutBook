@@ -14,7 +14,7 @@ app.use(cors())
 
 const server = http.createServer(app)
 
-const io = new Server(server).listen(3001)
+const io = new Server(server)
 
 io.sockets.on('connection', (socket) => {
   // Someone opens the website and opens the client
@@ -48,6 +48,6 @@ app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })
 
-// server.listen(3001, () => {
-//   console.log(`HTTP listening on port ${port}`)
-// })
+server.listen(3001, () => {
+  console.log(`HTTP listening on port ${port}`)
+})
