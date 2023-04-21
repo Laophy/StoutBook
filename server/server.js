@@ -33,10 +33,6 @@ io.on('connection', (socket) => {
 setInterval(() => {
   io.to('clock-room').emit('time', new Date())
 }, 1000)
-server.listen(3001, err => {
-  if (err) console.log(err)
-  console.log('Server running on Port 3001')
-})
 
 // Universal logging route
 app.use((req, res, next) => {
@@ -50,6 +46,6 @@ app.use('/data', APIRouter)
 // Final static file route
 app.use(Express.static('./public'))
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Listening on port ${port}`)
 })
