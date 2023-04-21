@@ -3,7 +3,6 @@ import Express from 'express'
 import APIRouter from './api/apiRoutes.js'
 import cors from 'cors'
 import { Server } from 'socket.io'
-import https from 'https'
 
 // Local port
 const port = 3000
@@ -12,7 +11,10 @@ const app = new Express()
 app.use(cors())
 app.use(Express.json())
 
-const server = https.createServer(app)
+const server = app.listen(port, () => {
+  console.log(`Listening on port ${port}`)
+})
+
 const io = new Server(server, {
   cors: {
     origin: '*',
@@ -45,7 +47,3 @@ app.use('/data', APIRouter)
 
 // Final static file route
 app.use(Express.static('./public'))
-
-server.listen(port, () => {
-  console.log(`Listening on port ${port}`)
-})
