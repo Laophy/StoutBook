@@ -7,11 +7,11 @@ import Grid from '@mui/material/Unstable_Grid2'
 // Client socket connection
 import io from 'socket.io-client'
 import ChatCard from './ChatCard'
-const socket = io.connect('http://laophy.com:3001', {
+const socket = io.connect('wss://laophy.com:3001', {
   reconnectionDelay: 1000,
   reconnection: true,
   reconnectionAttemps: 10,
-  transports: ['websocket'],
+  transports: ['websocket', 'ws', 'wss'],
   agent: false,
   upgrade: false,
   rejectUnauthorized: false
