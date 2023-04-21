@@ -14,7 +14,7 @@ app.use(cors())
 
 const server = http.createServer(app)
 
-const io = new Server(3000)
+const io = new Server(3001)
 
 io.on('connection', (socket) => {
   // Someone opens the website and opens the client
