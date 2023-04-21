@@ -4,6 +4,11 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Unstable_Grid2'
 
+import Avatar from '@mui/material/Avatar'
+import { blue } from '@mui/material/colors'
+import FormControl from '@mui/material/FormControl'
+import InputAdornment from '@mui/material/InputAdornment'
+
 // Client socket connection
 import { io } from 'socket.io-client'
 import ChatCard from './ChatCard'
@@ -11,7 +16,7 @@ import ChatCard from './ChatCard'
 const domain = 'https://laophy.com'
 const socket = io(domain)
 
-export default function ChatRoom (props) {
+export default function ChatRoom(props) {
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([])
   const [username, setUsername] = React.useState('YOU')
@@ -56,21 +61,20 @@ export default function ChatRoom (props) {
 
   return (
     <React.Fragment>
-      <h2 style={{ fontSize: 35, margin: 25 }}>Chat Room 1</h2>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1, marginTop: 10 }}>
         <Grid container spacing={3} columns={12}>
           <Grid xs={16} padding={3}>
             <div className='messages-container' style={{ height: '100%' }} ref={messageContainer}>
               {
                 messages.map((msgg, i) =>
-                  (<ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self}/>)
+                  (<ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} />)
                 )
               }
             </div>
           </Grid>
           <Grid xs={16} padding={3} style={{ width: '100%', bottom: 0 }}></Grid>
           <Grid xs={10} padding={3} style={{ width: '100%', position: 'fixed', bottom: 0, float: 'left' }}>
-            <TextField autoComplete='false' id="outlined-basic" label="Message" variant="outlined" fullWidth onChange={(e) => { setMessage(e.target.value) }} onKeyDown={sendMessage}/>
+            <TextField autoComplete='false' id="outlined-basic" label="Send Message" variant="outlined" fullWidth onChange={(e) => { setMessage(e.target.value) }} onKeyDown={sendMessage} />
           </Grid>
         </Grid>
       </Box>

@@ -22,7 +22,7 @@ export default function Nav (props) {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <FormControlLabel
               control={
