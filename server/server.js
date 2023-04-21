@@ -14,15 +14,9 @@ app.use(cors())
 
 const server = http.createServer(app)
 
-const io = new Server(server, {
-  cors: {
-    origin: '/',
-    methods: ['GET', 'POST'],
-    credentials: false
-  }
-})
+const io = new Server(3000)
 
-io.sockets.on('connection', (socket) => {
+io.on('connection', (socket) => {
   // Someone opens the website and opens the client
   console.log(`User connected: ${socket.id}`)
 
