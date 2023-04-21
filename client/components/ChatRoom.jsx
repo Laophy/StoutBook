@@ -8,7 +8,7 @@ import Grid from '@mui/material/Unstable_Grid2'
 import { io } from 'socket.io-client'
 import ChatCard from './ChatCard'
 
-const domain = 'http://laophy.com:3001'
+const domain = 'https://laophy.com:3001'
 const socket = io(domain)
 
 export default function ChatRoom (props) {

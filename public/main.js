@@ -46406,7 +46406,7 @@ Please use another name.` : formatMuiErrorMessage(18));
   }
 
   // client/components/ChatRoom.jsx
-  var domain = "http://laophy.com:3001";
+  var domain = "https://laophy.com:3001";
   var socket = lookup2(domain);
   function ChatRoom(props) {
     const [message, setMessage] = import_react15.default.useState("");
