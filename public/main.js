@@ -45415,15 +45415,15 @@ Please use another name.` : formatMuiErrorMessage(18));
       if (~this._readyState.indexOf("open"))
         return this;
       this.engine = new Socket(this.uri, this.opts);
-      const socket2 = this.engine;
+      const socket = this.engine;
       const self2 = this;
       this._readyState = "opening";
       this.skipReconnect = false;
-      const openSubDestroy = on(socket2, "open", function() {
+      const openSubDestroy = on(socket, "open", function() {
         self2.onopen();
         fn && fn();
       });
-      const errorSub = on(socket2, "error", (err) => {
+      const errorSub = on(socket, "error", (err) => {
         self2.cleanup();
         self2._readyState = "closed";
         this.emitReserved("error", err);
@@ -45440,8 +45440,8 @@ Please use another name.` : formatMuiErrorMessage(18));
         }
         const timer = this.setTimeoutFn(() => {
           openSubDestroy();
-          socket2.close();
-          socket2.emit("error", new Error("timeout"));
+          socket.close();
+          socket.emit("error", new Error("timeout"));
         }, timeout2);
         if (this.opts.autoUnref) {
           timer.unref();
@@ -45472,8 +45472,8 @@ Please use another name.` : formatMuiErrorMessage(18));
       this.cleanup();
       this._readyState = "open";
       this.emitReserved("open");
-      const socket2 = this.engine;
-      this.subs.push(on(socket2, "ping", this.onping.bind(this)), on(socket2, "data", this.ondata.bind(this)), on(socket2, "error", this.onerror.bind(this)), on(socket2, "close", this.onclose.bind(this)), on(this.decoder, "decoded", this.ondecoded.bind(this)));
+      const socket = this.engine;
+      this.subs.push(on(socket, "ping", this.onping.bind(this)), on(socket, "data", this.ondata.bind(this)), on(socket, "error", this.onerror.bind(this)), on(socket, "close", this.onclose.bind(this)), on(this.decoder, "decoded", this.ondecoded.bind(this)));
     }
     /**
      * Called upon a ping.
@@ -45520,14 +45520,14 @@ Please use another name.` : formatMuiErrorMessage(18));
      * @public
      */
     socket(nsp, opts) {
-      let socket2 = this.nsps[nsp];
-      if (!socket2) {
-        socket2 = new Socket2(this, nsp, opts);
-        this.nsps[nsp] = socket2;
-      } else if (this._autoConnect && !socket2.active) {
-        socket2.connect();
+      let socket = this.nsps[nsp];
+      if (!socket) {
+        socket = new Socket2(this, nsp, opts);
+        this.nsps[nsp] = socket;
+      } else if (this._autoConnect && !socket.active) {
+        socket.connect();
       }
-      return socket2;
+      return socket;
     }
     /**
      * Called upon a socket close.
@@ -45535,11 +45535,11 @@ Please use another name.` : formatMuiErrorMessage(18));
      * @param socket
      * @private
      */
-    _destroy(socket2) {
+    _destroy(socket) {
       const nsps = Object.keys(this.nsps);
       for (const nsp of nsps) {
-        const socket3 = this.nsps[nsp];
-        if (socket3.active) {
+        const socket2 = this.nsps[nsp];
+        if (socket2.active) {
           return;
         }
       }
@@ -46406,14 +46406,20 @@ Please use another name.` : formatMuiErrorMessage(18));
   }
 
   // client/components/ChatRoom.jsx
-  var socket = lookup2("https://laophy.com:3001");
-  socket.on("connect", () => {
-    console.log("You connected with id: " + socket.id);
-  });
   function ChatRoom(props) {
     const [message, setMessage] = import_react15.default.useState("");
     const [messages, setMessages] = import_react15.default.useState([]);
     const messageContainer = import_react15.default.useRef(null);
+    const [time, setTime] = import_react15.default.useState("fetching");
+    const socket = lookup2("http://localhost:3001");
+    import_react15.default.useEffect(() => {
+      socket.on("connect", () => console.log(socket.id));
+      socket.on("connect_error", () => {
+        setTimeout(() => socket.connect(), 3001);
+      });
+      socket.on("time", (data) => setTime(data));
+      socket.on("disconnect", () => setTime("server disconnected"));
+    }, []);
     const sendMessage = (e) => {
       if (e.key === "Enter") {
         socket.emit("send_message", { message });

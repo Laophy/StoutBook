@@ -3,17 +3,19 @@ import Express from 'express'
 import APIRouter from './api/apiRoutes.js'
 import cors from 'cors'
 import { Server } from 'socket.io'
+import http from 'http'
 
 // Local port
 const port = 3000
 
 const app = new Express()
-
 app.use(cors())
+app.use(Express.json())
 
-const io = new Server(3001, {
+const server = http.createServer(app)
+const io = new Server(server, {
   cors: {
-    origin: ['https://laophy.com:3001']
+    origin: ['http://localhost:3000', 'http://localhost:3001']
   }
 })
 
@@ -26,7 +28,13 @@ io.on('connection', (socket) => {
   })
 })
 
-app.use(Express.json())
+setInterval(() => {
+  io.to('clock-room').emit('time', new Date())
+}, 1000)
+server.listen(3001, err => {
+  if (err) console.log(err)
+  console.log('Server running on Port 3001')
+})
 
 // Universal logging route
 app.use((req, res, next) => {
