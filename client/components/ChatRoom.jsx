@@ -8,12 +8,14 @@ import Grid from '@mui/material/Unstable_Grid2'
 import { io } from 'socket.io-client'
 import ChatCard from './ChatCard'
 
+const domain = 'http://laophy.com:3001'
+const socket = io(domain)
+
 export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([])
   const messageContainer = React.useRef(null)
   const [time, setTime] = React.useState('fetching')
-  const socket = io('https://laophy.com:3001')
 
   React.useEffect(() => {
     socket.on('connect', () => console.log(socket.id))
@@ -47,7 +49,7 @@ export default function ChatRoom (props) {
       // alert(data.message)
       setMessages([...messages, { message: data.message, title: 'OTHER', self: false }])
     })
-  }, [socket, messages])
+  }, [messages])
 
   return (
     <React.Fragment>

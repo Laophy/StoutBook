@@ -45415,15 +45415,15 @@ Please use another name.` : formatMuiErrorMessage(18));
       if (~this._readyState.indexOf("open"))
         return this;
       this.engine = new Socket(this.uri, this.opts);
-      const socket = this.engine;
+      const socket2 = this.engine;
       const self2 = this;
       this._readyState = "opening";
       this.skipReconnect = false;
-      const openSubDestroy = on(socket, "open", function() {
+      const openSubDestroy = on(socket2, "open", function() {
         self2.onopen();
         fn && fn();
       });
-      const errorSub = on(socket, "error", (err) => {
+      const errorSub = on(socket2, "error", (err) => {
         self2.cleanup();
         self2._readyState = "closed";
         this.emitReserved("error", err);
@@ -45440,8 +45440,8 @@ Please use another name.` : formatMuiErrorMessage(18));
         }
         const timer = this.setTimeoutFn(() => {
           openSubDestroy();
-          socket.close();
-          socket.emit("error", new Error("timeout"));
+          socket2.close();
+          socket2.emit("error", new Error("timeout"));
         }, timeout2);
         if (this.opts.autoUnref) {
           timer.unref();
@@ -45472,8 +45472,8 @@ Please use another name.` : formatMuiErrorMessage(18));
       this.cleanup();
       this._readyState = "open";
       this.emitReserved("open");
-      const socket = this.engine;
-      this.subs.push(on(socket, "ping", this.onping.bind(this)), on(socket, "data", this.ondata.bind(this)), on(socket, "error", this.onerror.bind(this)), on(socket, "close", this.onclose.bind(this)), on(this.decoder, "decoded", this.ondecoded.bind(this)));
+      const socket2 = this.engine;
+      this.subs.push(on(socket2, "ping", this.onping.bind(this)), on(socket2, "data", this.ondata.bind(this)), on(socket2, "error", this.onerror.bind(this)), on(socket2, "close", this.onclose.bind(this)), on(this.decoder, "decoded", this.ondecoded.bind(this)));
     }
     /**
      * Called upon a ping.
@@ -45520,14 +45520,14 @@ Please use another name.` : formatMuiErrorMessage(18));
      * @public
      */
     socket(nsp, opts) {
-      let socket = this.nsps[nsp];
-      if (!socket) {
-        socket = new Socket2(this, nsp, opts);
-        this.nsps[nsp] = socket;
-      } else if (this._autoConnect && !socket.active) {
-        socket.connect();
+      let socket2 = this.nsps[nsp];
+      if (!socket2) {
+        socket2 = new Socket2(this, nsp, opts);
+        this.nsps[nsp] = socket2;
+      } else if (this._autoConnect && !socket2.active) {
+        socket2.connect();
       }
-      return socket;
+      return socket2;
     }
     /**
      * Called upon a socket close.
@@ -45535,11 +45535,11 @@ Please use another name.` : formatMuiErrorMessage(18));
      * @param socket
      * @private
      */
-    _destroy(socket) {
+    _destroy(socket2) {
       const nsps = Object.keys(this.nsps);
       for (const nsp of nsps) {
-        const socket2 = this.nsps[nsp];
-        if (socket2.active) {
+        const socket3 = this.nsps[nsp];
+        if (socket3.active) {
           return;
         }
       }
@@ -46406,12 +46406,13 @@ Please use another name.` : formatMuiErrorMessage(18));
   }
 
   // client/components/ChatRoom.jsx
+  var domain = "http://laophy.com:3001";
+  var socket = lookup2(domain);
   function ChatRoom(props) {
     const [message, setMessage] = import_react15.default.useState("");
     const [messages, setMessages] = import_react15.default.useState([]);
     const messageContainer = import_react15.default.useRef(null);
     const [time, setTime] = import_react15.default.useState("fetching");
-    const socket = lookup2("https://laophy.com:3001");
     import_react15.default.useEffect(() => {
       socket.on("connect", () => console.log(socket.id));
       socket.on("connect_error", () => {
@@ -46440,7 +46441,7 @@ Please use another name.` : formatMuiErrorMessage(18));
       socket.on("receive_message", (data) => {
         setMessages([...messages, { message: data.message, title: "OTHER", self: false }]);
       });
-    }, [socket, messages]);
+    }, [messages]);
     return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("h2", { style: { fontSize: 35, margin: 25 } }, "Chat Room 1"), /* @__PURE__ */ import_react15.default.createElement(Box_default, { sx: { flexGrow: 1 } }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { container: true, spacing: 3, columns: 12 }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3 }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "messages-container", style: { height: "100%" }, ref: messageContainer }, messages.map(
       (msgg, i2) => /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, title: msgg.title, message: msgg.message, self: msgg.self })
     ))), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3, style: { width: "100%", bottom: 0 } }), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 10, padding: 3, style: { width: "100%", position: "fixed", bottom: 0, float: "left" } }, /* @__PURE__ */ import_react15.default.createElement(TextField_default, { autoComplete: "false", id: "outlined-basic", label: "Message", variant: "outlined", fullWidth: true, onChange: (e) => {
