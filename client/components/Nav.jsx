@@ -45,7 +45,7 @@ export default function Nav (props) {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               StoutBook
             </Typography>
-            <Button color="inherit" onClick={() => alert('Chatting')}>Chat</Button>
+            <Button color="inherit">LOGIN</Button>
           </Toolbar>
         </AppBar>
       </Box>

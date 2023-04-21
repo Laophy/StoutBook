@@ -14,6 +14,7 @@ const socket = io(domain)
 export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([])
+  const [username, setUsername] = React.useState('YOU')
   const messageContainer = React.useRef(null)
   const [time, setTime] = React.useState('fetching')
 
@@ -24,12 +25,14 @@ export default function ChatRoom (props) {
     })
     socket.on('time', (data) => setTime(data))
     socket.on('disconnect', () => setTime('server disconnected'))
+
+    setUsername(prompt('Enter a Username'))
   }, [])
 
   const sendMessage = (e) => {
     if (e.key === 'Enter') {
-      socket.emit('send_message', { message })
-      setMessages([...messages, { message, title: 'YOU', self: true }])
+      socket.emit('send_message', { message, username })
+      setMessages([...messages, { message, username, self: true }])
       e.target.value = ''
     }
   }
@@ -47,9 +50,9 @@ export default function ChatRoom (props) {
   React.useEffect(() => {
     socket.on('receive_message', (data) => {
       // alert(data.message)
-      setMessages([...messages, { message: data.message, title: 'OTHER', self: false }])
+      setMessages([...messages, { message: data.message, username: data.username, self: false }])
     })
-  }, [messages])
+  }, [socket, messages])
 
   return (
     <React.Fragment>
@@ -60,7 +63,7 @@ export default function ChatRoom (props) {
             <div className='messages-container' style={{ height: '100%' }} ref={messageContainer}>
               {
                 messages.map((msgg, i) =>
-                  (<ChatCard key={i} title={msgg.title} message={msgg.message} self={msgg.self}/>)
+                  (<ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self}/>)
                 )
               }
             </div>

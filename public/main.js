@@ -36494,7 +36494,7 @@ Please use another name.` : formatMuiErrorMessage(18));
         "aria-label": "menu",
         sx: { mr: 2 }
       }
-    ), /* @__PURE__ */ import_react13.default.createElement(Typography_default, { variant: "h6", component: "div", sx: { flexGrow: 1 } }, "StoutBook"), /* @__PURE__ */ import_react13.default.createElement(Button_default, { color: "inherit", onClick: () => alert("Chatting") }, "Chat")))));
+    ), /* @__PURE__ */ import_react13.default.createElement(Typography_default, { variant: "h6", component: "div", sx: { flexGrow: 1 } }, "StoutBook"), /* @__PURE__ */ import_react13.default.createElement(Button_default, { color: "inherit" }, "LOGIN")))));
   }
 
   // client/components/ChatRoom.jsx
@@ -46395,12 +46395,12 @@ Please use another name.` : formatMuiErrorMessage(18));
 
   // client/components/ChatCard.jsx
   function ChatCard(props) {
-    const { title, message, self: self2 } = props;
+    const { username, message, self: self2 } = props;
     return /* @__PURE__ */ import_react14.default.createElement(import_react14.default.Fragment, null, /* @__PURE__ */ import_react14.default.createElement(Card_default, { sx: { margin: 2, width: "50%", float: self2 === true ? "right" : "left" } }, /* @__PURE__ */ import_react14.default.createElement(
       CardHeader_default,
       {
-        avatar: /* @__PURE__ */ import_react14.default.createElement(Avatar_default, { sx: { bgcolor: blue_default[500] }, "aria-label": "recipe" }, title.charAt(0)),
-        title: /* @__PURE__ */ import_react14.default.createElement(Typography_default, { sx: { fontSize: 14 }, color: "text.secondary", gutterBottom: true }, title)
+        avatar: /* @__PURE__ */ import_react14.default.createElement(Avatar_default, { sx: { bgcolor: blue_default[500] }, "aria-label": "recipe" }, username == null ? void 0 : username.charAt(0)),
+        title: /* @__PURE__ */ import_react14.default.createElement(Typography_default, { sx: { fontSize: 14 }, color: "text.secondary", gutterBottom: true }, username)
       }
     ), /* @__PURE__ */ import_react14.default.createElement(CardContent_default, null, /* @__PURE__ */ import_react14.default.createElement(Typography_default, { variant: "h5", component: "div" }, message)), /* @__PURE__ */ import_react14.default.createElement(CardActions_default, null, /* @__PURE__ */ import_react14.default.createElement(Button_default, { size: "small" }, "Reply"))));
   }
@@ -46411,6 +46411,7 @@ Please use another name.` : formatMuiErrorMessage(18));
   function ChatRoom(props) {
     const [message, setMessage] = import_react15.default.useState("");
     const [messages, setMessages] = import_react15.default.useState([]);
+    const [username, setUsername] = import_react15.default.useState("YOU");
     const messageContainer = import_react15.default.useRef(null);
     const [time, setTime] = import_react15.default.useState("fetching");
     import_react15.default.useEffect(() => {
@@ -46420,11 +46421,12 @@ Please use another name.` : formatMuiErrorMessage(18));
       });
       socket.on("time", (data) => setTime(data));
       socket.on("disconnect", () => setTime("server disconnected"));
+      setUsername(prompt("Enter a Username"));
     }, []);
     const sendMessage = (e) => {
       if (e.key === "Enter") {
-        socket.emit("send_message", { message });
-        setMessages([...messages, { message, title: "YOU", self: true }]);
+        socket.emit("send_message", { message, username });
+        setMessages([...messages, { message, username, self: true }]);
         e.target.value = "";
       }
     };
@@ -46439,11 +46441,11 @@ Please use another name.` : formatMuiErrorMessage(18));
     }, [messages]);
     import_react15.default.useEffect(() => {
       socket.on("receive_message", (data) => {
-        setMessages([...messages, { message: data.message, title: "OTHER", self: false }]);
+        setMessages([...messages, { message: data.message, username: data.username, self: false }]);
       });
-    }, [messages]);
+    }, [socket, messages]);
     return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement("h2", { style: { fontSize: 35, margin: 25 } }, "Chat Room 1"), /* @__PURE__ */ import_react15.default.createElement(Box_default, { sx: { flexGrow: 1 } }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { container: true, spacing: 3, columns: 12 }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3 }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "messages-container", style: { height: "100%" }, ref: messageContainer }, messages.map(
-      (msgg, i2) => /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, title: msgg.title, message: msgg.message, self: msgg.self })
+      (msgg, i2) => /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self })
     ))), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3, style: { width: "100%", bottom: 0 } }), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 10, padding: 3, style: { width: "100%", position: "fixed", bottom: 0, float: "left" } }, /* @__PURE__ */ import_react15.default.createElement(TextField_default, { autoComplete: "false", id: "outlined-basic", label: "Message", variant: "outlined", fullWidth: true, onChange: (e) => {
       setMessage(e.target.value);
     }, onKeyDown: sendMessage })))));
