@@ -46411,7 +46411,7 @@ Please use another name.` : formatMuiErrorMessage(18));
     const [messages, setMessages] = import_react15.default.useState([]);
     const messageContainer = import_react15.default.useRef(null);
     const [time, setTime] = import_react15.default.useState("fetching");
-    const socket = lookup2("http://localhost:3001");
+    const socket = lookup2("https://laophy.com:3001");
     import_react15.default.useEffect(() => {
       socket.on("connect", () => console.log(socket.id));
       socket.on("connect_error", () => {

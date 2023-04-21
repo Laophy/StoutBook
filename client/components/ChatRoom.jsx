@@ -13,7 +13,7 @@ export default function ChatRoom (props) {
   const [messages, setMessages] = React.useState([])
   const messageContainer = React.useRef(null)
   const [time, setTime] = React.useState('fetching')
-  const socket = io('http://localhost:3001')
+  const socket = io('https://laophy.com:3001')
 
   React.useEffect(() => {
     socket.on('connect', () => console.log(socket.id))
