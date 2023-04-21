@@ -48,6 +48,6 @@ app.listen(port, () => {
   console.log(`Listening on port http://localhost:${port}`)
 })
 
-server.listen(3001, () => {
+server.listen(() => {
   console.log('Listening on port HTTP 3001')
 })
