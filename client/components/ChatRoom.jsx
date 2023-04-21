@@ -50,7 +50,7 @@ export default function ChatRoom (props) {
   }, [socket, messages])
 
   return (
-    <>
+    <React.Fragment>
       <h2 style={{ fontSize: 35, margin: 25 }}>Chat Room 1</h2>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={3} columns={12}>
@@ -69,6 +69,6 @@ export default function ChatRoom (props) {
           </Grid>
         </Grid>
       </Box>
-    </>
+    </React.Fragment>
   )
 }
