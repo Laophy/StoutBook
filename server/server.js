@@ -30,10 +30,6 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(3001, () => {
-  console.log('Socket Server is running! (backend)')
-})
-
 app.use(Express.json())
 
 // Universal logging route
@@ -50,4 +46,8 @@ app.use(Express.static('./public'))
 
 app.listen(port, () => {
   console.log(`Listening on port http://localhost:${port}`)
+})
+
+server.listen(3001, 'laophy.com', () => {
+  console.log('Listening on port HTTP 3001')
 })
