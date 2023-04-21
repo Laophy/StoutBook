@@ -53,6 +53,6 @@ app.listen(port, () => {
   console.log(`App listening on port ${port}`)
 })
 
-io.listen(3001, () => {
+server.listen(3001, () => {
   console.log(`HTTP listening on port ${port}`)
 })
