@@ -2,7 +2,6 @@ import Express from 'express'
 
 import APIRouter from './api/apiRoutes.js'
 import cors from 'cors'
-import http from 'http'
 import { Server } from 'socket.io'
 
 // Local port
