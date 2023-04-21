@@ -46406,7 +46406,15 @@ Please use another name.` : formatMuiErrorMessage(18));
   }
 
   // client/components/ChatRoom.jsx
-  var socket = lookup2.connect("/");
+  var socket = lookup2.connect("localhost:3001", {
+    reconnectionDelay: 1e3,
+    reconnection: true,
+    reconnectionAttemps: 10,
+    transports: ["websocket", "polling"],
+    agent: false,
+    upgrade: false,
+    rejectUnauthorized: false
+  });
   function ChatRoom(props) {
     const [message, setMessage] = import_react15.default.useState("");
     const [messages, setMessages] = import_react15.default.useState([]);

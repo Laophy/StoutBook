@@ -1,12 +1,25 @@
 import Express from 'express'
 
 import APIRouter from './api/apiRoutes.js'
+import cors from 'cors'
+import http from 'http'
 import { Server } from 'socket.io'
 
 // Local port
 const port = 3000
+
 const app = new Express()
-const io = new Server(3001)
+
+app.use(cors())
+
+const server = http.createServer(app)
+
+const io = new Server(server, {
+  cors: {
+    origin: 'ws://localhost:3000',
+    methods: ['GET', 'POST']
+  }
+})
 
 io.on('connection', (socket) => {
   // Someone opens the website and opens the client
@@ -15,12 +28,13 @@ io.on('connection', (socket) => {
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data)
   })
-
-  // Whenever someone disconnects this piece of code executed
-  socket.on('disconnect', function () {
-    console.log('A user disconnected')
-  })
 })
+
+server.listen(3001, () => {
+  console.log('Socket Server is running! (backend)')
+})
+
+app.use(Express.json())
 
 // Universal logging route
 app.use((req, res, next) => {
@@ -31,11 +45,9 @@ app.use((req, res, next) => {
 // Attach the movie routes
 app.use('/data', APIRouter)
 
-app.use(Express.json())
-
 // Final static file route
 app.use(Express.static('./public'))
 
 app.listen(port, () => {
-  console.log(`App listening on port ${port}`)
+  console.log(`Listening on port http://localhost:${port}`)
 })
