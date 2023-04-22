@@ -15,22 +15,20 @@ const socket = io(domain)
 export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([])
-  const [username, setUsername] = React.useState('YOU')
+  const [username, setUsername] = React.useState('Anonymous')
   const messageContainer = React.useRef(null)
   const [time, setTime] = React.useState('fetching')
 
   React.useEffect(() => {
-    socket.on('connect', () => console.log(socket.id))
+    socket.on('connect', async () => await setUsername(prompt('Enter a Username')))
     socket.on('connect_error', () => {
       setTimeout(() => socket.connect(), 3001)
     })
     socket.on('time', (data) => setTime(data))
     socket.on('disconnect', () => setTime('server disconnected'))
 
-    const user = prompt('Enter a Username')
-    setUsername(user)
-    socket.emit('set_username', { message: user, username })
-  }, [])
+    socket.emit('set_username', { username })
+  }, [username])
 
   const sendMessage = (e) => {
     if (e.key === 'Enter') {
@@ -57,16 +55,21 @@ export default function ChatRoom (props) {
     })
     socket.on('join_room', (data) => {
       // alert(data.message)
-      setMessages([...messages, { message: `${data.message} has joined the room.`, username: '', self: false, joined: true }])
+      setMessages([...messages, { message: `${data.username} has joined the room.`, username: '', self: false, joined: true }])
+    })
+    // Not working
+    socket.on('leave_room', (socketid) => {
+      // alert(data.message)
+      setMessages([...messages, { message: `${socketid} has left the room.`, username: '', self: false, joined: true }])
     })
   }, [socket, messages])
 
   return (
     <React.Fragment>
-      <Box sx={{ flexGrow: 1, marginTop: 10 }}>
-        <Grid container spacing={3} columns={12}>
+      <Box sx={{ flexGrow: 1, marginTop: 10, boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;', width: '75%', height: '75vh', float: 'left', overflow: 'auto', overflowX: 'hidden' }} ref={messageContainer}>
+        <Grid container spacing={3} columns={16}>
           <Grid xs={16} padding={3}>
-            <div className='messages-container' style={{ height: '100%' }} ref={messageContainer}>
+            <div className='messages-container' style={{ height: '100%' }}>
               {
                 messages.map((msgg, i) =>
                   (msgg.joined
@@ -77,11 +80,11 @@ export default function ChatRoom (props) {
             </div>
           </Grid>
           <Grid xs={16} padding={3} style={{ width: '100%', bottom: 0 }}></Grid>
-          <Grid xs={10} padding={3} style={{ width: '100%', position: 'fixed', bottom: 0, float: 'left' }}>
-            <TextField autoComplete='false' id="outlined-basic" label="Send Message" variant="outlined" fullWidth onChange={(e) => { setMessage(e.target.value) }} onKeyDown={sendMessage} />
-          </Grid>
         </Grid>
       </Box>
+      <Grid xs={10} padding={3} style={{ width: '100%', position: 'fixed', bottom: 0, float: 'left' }}>
+        <TextField autoComplete='false' id="outlined-basic" label="Send Message" variant="outlined" fullWidth onChange={(e) => { setMessage(e.target.value) }} onKeyDown={sendMessage} />
+      </Grid>
     </React.Fragment>
   )
 }

@@ -28,12 +28,18 @@ io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`)
 
   socket.on('set_username', (data) => {
-    console.log(`Username was set: ${data.message} for ID: ${socket.id}`)
-    socket.broadcast.emit('join_room', data)
+    console.log(`Username was set: ${data.username} for ID: ${socket.id}`)
+    socket.broadcast.emit('join_room', data, socket.id)
   })
 
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data)
+  })
+
+  socket.conn.on('close', (reason) => {
+    // called when the underlying connection is closed
+    console.log(`ID: ${socket.id} has left reason: ${reason}`)
+    socket.broadcast.emit('leave_room', socket.id)
   })
 })
 

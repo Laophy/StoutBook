@@ -29,6 +29,26 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
+  var __async = (__this, __arguments, generator) => {
+    return new Promise((resolve, reject) => {
+      var fulfilled = (value2) => {
+        try {
+          step(generator.next(value2));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var rejected = (value2) => {
+        try {
+          step(generator.throw(value2));
+        } catch (e) {
+          reject(e);
+        }
+      };
+      var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
+      step((generator = generator.apply(__this, __arguments)).next());
+    });
+  };
 
   // node_modules/react/cjs/react.development.js
   var require_react_development = __commonJS({
@@ -2387,9 +2407,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React81 = require_react();
+          var React82 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React81.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React82.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -3994,7 +4014,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React81.Children.forEach(props.children, function(child) {
+                  React82.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -12441,7 +12461,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React81.Component().refs;
+          var emptyRefsObject = new React82.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -24578,7 +24598,7 @@
       if (true) {
         (function() {
           "use strict";
-          var React81 = require_react();
+          var React82 = require_react();
           var REACT_ELEMENT_TYPE = Symbol.for("react.element");
           var REACT_PORTAL_TYPE = Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = Symbol.for("react.fragment");
@@ -24604,7 +24624,7 @@
             }
             return null;
           }
-          var ReactSharedInternals = React81.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React82.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -25656,11 +25676,11 @@
   });
 
   // client/main.jsx
-  var import_react17 = __toESM(require_react(), 1);
+  var import_react18 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // client/components/App.jsx
-  var import_react16 = __toESM(require_react(), 1);
+  var import_react17 = __toESM(require_react(), 1);
 
   // node_modules/@mui/utils/esm/chainPropTypes.js
   function chainPropTypes(propType1, propType2) {
@@ -45415,15 +45435,15 @@ Please use another name.` : formatMuiErrorMessage(18));
       if (~this._readyState.indexOf("open"))
         return this;
       this.engine = new Socket(this.uri, this.opts);
-      const socket2 = this.engine;
+      const socket3 = this.engine;
       const self2 = this;
       this._readyState = "opening";
       this.skipReconnect = false;
-      const openSubDestroy = on(socket2, "open", function() {
+      const openSubDestroy = on(socket3, "open", function() {
         self2.onopen();
         fn && fn();
       });
-      const errorSub = on(socket2, "error", (err) => {
+      const errorSub = on(socket3, "error", (err) => {
         self2.cleanup();
         self2._readyState = "closed";
         this.emitReserved("error", err);
@@ -45440,8 +45460,8 @@ Please use another name.` : formatMuiErrorMessage(18));
         }
         const timer = this.setTimeoutFn(() => {
           openSubDestroy();
-          socket2.close();
-          socket2.emit("error", new Error("timeout"));
+          socket3.close();
+          socket3.emit("error", new Error("timeout"));
         }, timeout2);
         if (this.opts.autoUnref) {
           timer.unref();
@@ -45472,8 +45492,8 @@ Please use another name.` : formatMuiErrorMessage(18));
       this.cleanup();
       this._readyState = "open";
       this.emitReserved("open");
-      const socket2 = this.engine;
-      this.subs.push(on(socket2, "ping", this.onping.bind(this)), on(socket2, "data", this.ondata.bind(this)), on(socket2, "error", this.onerror.bind(this)), on(socket2, "close", this.onclose.bind(this)), on(this.decoder, "decoded", this.ondecoded.bind(this)));
+      const socket3 = this.engine;
+      this.subs.push(on(socket3, "ping", this.onping.bind(this)), on(socket3, "data", this.ondata.bind(this)), on(socket3, "error", this.onerror.bind(this)), on(socket3, "close", this.onclose.bind(this)), on(this.decoder, "decoded", this.ondecoded.bind(this)));
     }
     /**
      * Called upon a ping.
@@ -45520,14 +45540,14 @@ Please use another name.` : formatMuiErrorMessage(18));
      * @public
      */
     socket(nsp, opts) {
-      let socket2 = this.nsps[nsp];
-      if (!socket2) {
-        socket2 = new Socket2(this, nsp, opts);
-        this.nsps[nsp] = socket2;
-      } else if (this._autoConnect && !socket2.active) {
-        socket2.connect();
+      let socket3 = this.nsps[nsp];
+      if (!socket3) {
+        socket3 = new Socket2(this, nsp, opts);
+        this.nsps[nsp] = socket3;
+      } else if (this._autoConnect && !socket3.active) {
+        socket3.connect();
       }
-      return socket2;
+      return socket3;
     }
     /**
      * Called upon a socket close.
@@ -45535,11 +45555,11 @@ Please use another name.` : formatMuiErrorMessage(18));
      * @param socket
      * @private
      */
-    _destroy(socket2) {
+    _destroy(socket3) {
       const nsps = Object.keys(this.nsps);
       for (const nsp of nsps) {
-        const socket3 = this.nsps[nsp];
-        if (socket3.active) {
+        const socket4 = this.nsps[nsp];
+        if (socket4.active) {
           return;
         }
       }
@@ -46411,20 +46431,20 @@ Please use another name.` : formatMuiErrorMessage(18));
   function ChatRoom(props) {
     const [message, setMessage] = import_react15.default.useState("");
     const [messages, setMessages] = import_react15.default.useState([]);
-    const [username, setUsername] = import_react15.default.useState("YOU");
+    const [username, setUsername] = import_react15.default.useState("Anonymous");
     const messageContainer = import_react15.default.useRef(null);
     const [time, setTime] = import_react15.default.useState("fetching");
     import_react15.default.useEffect(() => {
-      socket.on("connect", () => console.log(socket.id));
+      socket.on("connect", () => __async(this, null, function* () {
+        return yield setUsername(prompt("Enter a Username"));
+      }));
       socket.on("connect_error", () => {
         setTimeout(() => socket.connect(), 3001);
       });
       socket.on("time", (data) => setTime(data));
       socket.on("disconnect", () => setTime("server disconnected"));
-      const user = prompt("Enter a Username");
-      setUsername(user);
-      socket.emit("set_username", { message: user, username });
-    }, []);
+      socket.emit("set_username", { username });
+    }, [username]);
     const sendMessage = (e) => {
       if (e.key === "Enter") {
         socket.emit("send_message", { message, username });
@@ -46446,20 +46466,42 @@ Please use another name.` : formatMuiErrorMessage(18));
         setMessages([...messages, { message: data.message, username: data.username, self: false }]);
       });
       socket.on("join_room", (data) => {
-        setMessages([...messages, { message: `${data.message} has joined the room.`, username: "", self: false, joined: true }]);
+        setMessages([...messages, { message: `${data.username} has joined the room.`, username: "", self: false, joined: true }]);
+      });
+      socket.on("leave_room", (socketid) => {
+        setMessages([...messages, { message: `${socketid} has left the room.`, username: "", self: false, joined: true }]);
       });
     }, [socket, messages]);
-    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10 } }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { container: true, spacing: 3, columns: 12 }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3 }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "messages-container", style: { height: "100%" }, ref: messageContainer }, messages.map(
+    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10, boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;", width: "75%", height: "75vh", float: "left", overflow: "auto", overflowX: "hidden" }, ref: messageContainer }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { container: true, spacing: 3, columns: 16 }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3 }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "messages-container", style: { height: "100%" } }, messages.map(
       (msgg, i2) => msgg.joined ? /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self, joined: msgg.joined }) : /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self })
-    ))), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3, style: { width: "100%", bottom: 0 } }), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 10, padding: 3, style: { width: "100%", position: "fixed", bottom: 0, float: "left" } }, /* @__PURE__ */ import_react15.default.createElement(TextField_default, { autoComplete: "false", id: "outlined-basic", label: "Send Message", variant: "outlined", fullWidth: true, onChange: (e) => {
+    ))), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3, style: { width: "100%", bottom: 0 } }))), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 10, padding: 3, style: { width: "100%", position: "fixed", bottom: 0, float: "left" } }, /* @__PURE__ */ import_react15.default.createElement(TextField_default, { autoComplete: "false", id: "outlined-basic", label: "Send Message", variant: "outlined", fullWidth: true, onChange: (e) => {
       setMessage(e.target.value);
-    }, onKeyDown: sendMessage })))));
+    }, onKeyDown: sendMessage })));
+  }
+
+  // client/components/OnlineUsers.jsx
+  var import_react16 = __toESM(require_react(), 1);
+  var domain2 = "http://localhost:3000";
+  var socket2 = lookup2(domain2);
+  function OnlineUsers(props) {
+    const [users, setUsers] = import_react16.default.useState([]);
+    import_react16.default.useEffect(() => {
+      socket2.on("join_room", (data, socketid) => {
+        setUsers([...users, { username: data.username, id: socketid }]);
+      });
+      socket2.on("leave_room", (socketid) => {
+        setUsers([...users.filter((plr) => {
+          return plr.id !== socketid;
+        })]);
+      });
+    }, [socket2, users]);
+    return /* @__PURE__ */ import_react16.default.createElement(import_react16.default.Fragment, null, /* @__PURE__ */ import_react16.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10, marginLeft: 1, marginRight: 5, boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;", width: "15%", height: "75vh", float: "left", overflow: "auto", overflowX: "hidden", padding: 2, minWidth: "250" } }, /* @__PURE__ */ import_react16.default.createElement(Typography_default, { variant: "h5", component: "h1", sx: { flexGrow: 1 } }, "Online Users"), /* @__PURE__ */ import_react16.default.createElement("ul", null, users.map((user, i2) => /* @__PURE__ */ import_react16.default.createElement("li", { key: i2 }, i2, " - ", user.username)))));
   }
 
   // client/components/App.jsx
   function App(props) {
-    const [theme, setTheme] = import_react16.default.useState(false);
-    const [darkTheme, setDarkTheme] = import_react16.default.useState(createTheme_default2({
+    const [theme, setTheme] = import_react17.default.useState(false);
+    const [darkTheme, setDarkTheme] = import_react17.default.useState(createTheme_default2({
       palette: {
         mode: theme ? "dark" : "light"
       }
@@ -46467,20 +46509,20 @@ Please use another name.` : formatMuiErrorMessage(18));
     const updateTheme = (theme2) => {
       setTheme(!theme2);
     };
-    import_react16.default.useEffect(() => {
+    import_react17.default.useEffect(() => {
       setDarkTheme(createTheme_default2({
         palette: {
           mode: theme ? "dark" : "light"
         }
       }));
     }, [theme]);
-    return /* @__PURE__ */ import_react16.default.createElement(import_react16.default.Fragment, null, /* @__PURE__ */ import_react16.default.createElement(ThemeProvider4, { theme: darkTheme }, /* @__PURE__ */ import_react16.default.createElement(CssBaseline_default, null), /* @__PURE__ */ import_react16.default.createElement(Nav, { setMode: (theme2) => updateTheme(theme2) }), /* @__PURE__ */ import_react16.default.createElement(ChatRoom, null)));
+    return /* @__PURE__ */ import_react17.default.createElement(import_react17.default.Fragment, null, /* @__PURE__ */ import_react17.default.createElement(ThemeProvider4, { theme: darkTheme }, /* @__PURE__ */ import_react17.default.createElement(CssBaseline_default, null), /* @__PURE__ */ import_react17.default.createElement(Nav, { setMode: (theme2) => updateTheme(theme2) }), /* @__PURE__ */ import_react17.default.createElement(OnlineUsers, null), /* @__PURE__ */ import_react17.default.createElement(ChatRoom, null)));
   }
 
   // client/main.jsx
   var root = (0, import_client.createRoot)(document.getElementById("root"));
   root.render(
-    /* @__PURE__ */ import_react17.default.createElement(App, null)
+    /* @__PURE__ */ import_react18.default.createElement(App, null)
   );
 })();
 /*! Bundled license information:
