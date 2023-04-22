@@ -29,6 +29,7 @@ io.on('connection', (socket) => {
 
   socket.on('set_username', (data) => {
     console.log(`Username was set: ${data.message} for ID: ${socket.id}`)
+    socket.broadcast.emit('join_room', data)
   })
 
   socket.on('send_message', (data) => {

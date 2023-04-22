@@ -42620,252 +42620,6 @@ Please use another name.` : formatMuiErrorMessage(18));
   } : void 0;
   var Grid2_default = Grid2;
 
-  // node_modules/@mui/material/Avatar/Avatar.js
-  var React72 = __toESM(require_react());
-  var import_prop_types56 = __toESM(require_prop_types());
-
-  // node_modules/@mui/material/internal/svg-icons/Person.js
-  var React71 = __toESM(require_react());
-  var import_jsx_runtime67 = __toESM(require_jsx_runtime());
-  var Person_default = createSvgIcon(/* @__PURE__ */ (0, import_jsx_runtime67.jsx)("path", {
-    d: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
-  }), "Person");
-
-  // node_modules/@mui/material/Avatar/avatarClasses.js
-  function getAvatarUtilityClass(slot) {
-    return generateUtilityClass("MuiAvatar", slot);
-  }
-  var avatarClasses = generateUtilityClasses("MuiAvatar", ["root", "colorDefault", "circular", "rounded", "square", "img", "fallback"]);
-
-  // node_modules/@mui/material/Avatar/Avatar.js
-  var import_jsx_runtime68 = __toESM(require_jsx_runtime());
-  var _excluded49 = ["alt", "children", "className", "component", "imgProps", "sizes", "src", "srcSet", "variant"];
-  var useUtilityClasses29 = (ownerState) => {
-    const {
-      classes,
-      variant,
-      colorDefault
-    } = ownerState;
-    const slots = {
-      root: ["root", variant, colorDefault && "colorDefault"],
-      img: ["img"],
-      fallback: ["fallback"]
-    };
-    return composeClasses(slots, getAvatarUtilityClass, classes);
-  };
-  var AvatarRoot = styled_default2("div", {
-    name: "MuiAvatar",
-    slot: "Root",
-    overridesResolver: (props, styles5) => {
-      const {
-        ownerState
-      } = props;
-      return [styles5.root, styles5[ownerState.variant], ownerState.colorDefault && styles5.colorDefault];
-    }
-  })(({
-    theme,
-    ownerState
-  }) => _extends({
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexShrink: 0,
-    width: 40,
-    height: 40,
-    fontFamily: theme.typography.fontFamily,
-    fontSize: theme.typography.pxToRem(20),
-    lineHeight: 1,
-    borderRadius: "50%",
-    overflow: "hidden",
-    userSelect: "none"
-  }, ownerState.variant === "rounded" && {
-    borderRadius: (theme.vars || theme).shape.borderRadius
-  }, ownerState.variant === "square" && {
-    borderRadius: 0
-  }, ownerState.colorDefault && _extends({
-    color: (theme.vars || theme).palette.background.default
-  }, theme.vars ? {
-    backgroundColor: theme.vars.palette.Avatar.defaultBg
-  } : {
-    backgroundColor: theme.palette.mode === "light" ? theme.palette.grey[400] : theme.palette.grey[600]
-  })));
-  var AvatarImg = styled_default2("img", {
-    name: "MuiAvatar",
-    slot: "Img",
-    overridesResolver: (props, styles5) => styles5.img
-  })({
-    width: "100%",
-    height: "100%",
-    textAlign: "center",
-    // Handle non-square image. The property isn't supported by IE11.
-    objectFit: "cover",
-    // Hide alt text.
-    color: "transparent",
-    // Hide the image broken icon, only works on Chrome.
-    textIndent: 1e4
-  });
-  var AvatarFallback = styled_default2(Person_default, {
-    name: "MuiAvatar",
-    slot: "Fallback",
-    overridesResolver: (props, styles5) => styles5.fallback
-  })({
-    width: "75%",
-    height: "75%"
-  });
-  function useLoaded({
-    crossOrigin,
-    referrerPolicy,
-    src,
-    srcSet
-  }) {
-    const [loaded, setLoaded] = React72.useState(false);
-    React72.useEffect(() => {
-      if (!src && !srcSet) {
-        return void 0;
-      }
-      setLoaded(false);
-      let active = true;
-      const image = new Image();
-      image.onload = () => {
-        if (!active) {
-          return;
-        }
-        setLoaded("loaded");
-      };
-      image.onerror = () => {
-        if (!active) {
-          return;
-        }
-        setLoaded("error");
-      };
-      image.crossOrigin = crossOrigin;
-      image.referrerPolicy = referrerPolicy;
-      image.src = src;
-      if (srcSet) {
-        image.srcset = srcSet;
-      }
-      return () => {
-        active = false;
-      };
-    }, [crossOrigin, referrerPolicy, src, srcSet]);
-    return loaded;
-  }
-  var Avatar = /* @__PURE__ */ React72.forwardRef(function Avatar2(inProps, ref) {
-    const props = useThemeProps2({
-      props: inProps,
-      name: "MuiAvatar"
-    });
-    const {
-      alt,
-      children: childrenProp,
-      className,
-      component = "div",
-      imgProps,
-      sizes,
-      src,
-      srcSet,
-      variant = "circular"
-    } = props, other = _objectWithoutPropertiesLoose(props, _excluded49);
-    let children = null;
-    const loaded = useLoaded(_extends({}, imgProps, {
-      src,
-      srcSet
-    }));
-    const hasImg = src || srcSet;
-    const hasImgNotFailing = hasImg && loaded !== "error";
-    const ownerState = _extends({}, props, {
-      colorDefault: !hasImgNotFailing,
-      component,
-      variant
-    });
-    const classes = useUtilityClasses29(ownerState);
-    if (hasImgNotFailing) {
-      children = /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(AvatarImg, _extends({
-        alt,
-        src,
-        srcSet,
-        sizes,
-        ownerState,
-        className: classes.img
-      }, imgProps));
-    } else if (childrenProp != null) {
-      children = childrenProp;
-    } else if (hasImg && alt) {
-      children = alt[0];
-    } else {
-      children = /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(AvatarFallback, {
-        ownerState,
-        className: classes.fallback
-      });
-    }
-    return /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(AvatarRoot, _extends({
-      as: component,
-      ownerState,
-      className: clsx_m_default(classes.root, className),
-      ref
-    }, other, {
-      children
-    }));
-  });
-  true ? Avatar.propTypes = {
-    // ----------------------------- Warning --------------------------------
-    // | These PropTypes are generated from the TypeScript type definitions |
-    // |     To update them edit the d.ts file and run "yarn proptypes"     |
-    // ----------------------------------------------------------------------
-    /**
-     * Used in combination with `src` or `srcSet` to
-     * provide an alt attribute for the rendered `img` element.
-     */
-    alt: import_prop_types56.default.string,
-    /**
-     * Used to render icon or text elements inside the Avatar if `src` is not set.
-     * This can be an element, or just a string.
-     */
-    children: import_prop_types56.default.node,
-    /**
-     * Override or extend the styles applied to the component.
-     */
-    classes: import_prop_types56.default.object,
-    /**
-     * @ignore
-     */
-    className: import_prop_types56.default.string,
-    /**
-     * The component used for the root node.
-     * Either a string to use a HTML element or a component.
-     */
-    component: import_prop_types56.default.elementType,
-    /**
-     * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) applied to the `img` element if the component is used to display an image.
-     * It can be used to listen for the loading error event.
-     */
-    imgProps: import_prop_types56.default.object,
-    /**
-     * The `sizes` attribute for the `img` element.
-     */
-    sizes: import_prop_types56.default.string,
-    /**
-     * The `src` attribute for the `img` element.
-     */
-    src: import_prop_types56.default.string,
-    /**
-     * The `srcSet` attribute for the `img` element.
-     * Use this attribute for responsive image display.
-     */
-    srcSet: import_prop_types56.default.string,
-    /**
-     * The system prop that allows defining system overrides as well as additional CSS styles.
-     */
-    sx: import_prop_types56.default.oneOfType([import_prop_types56.default.arrayOf(import_prop_types56.default.oneOfType([import_prop_types56.default.func, import_prop_types56.default.object, import_prop_types56.default.bool])), import_prop_types56.default.func, import_prop_types56.default.object]),
-    /**
-     * The shape of the avatar.
-     * @default 'circular'
-     */
-    variant: import_prop_types56.default.oneOfType([import_prop_types56.default.oneOf(["circular", "rounded", "square"]), import_prop_types56.default.string])
-  } : void 0;
-  var Avatar_default = Avatar;
-
   // node_modules/engine.io-parser/build/esm/commons.js
   var PACKET_TYPES = /* @__PURE__ */ Object.create(null);
   PACKET_TYPES["open"] = "0";
@@ -45939,8 +45693,8 @@ Please use another name.` : formatMuiErrorMessage(18));
   var import_react14 = __toESM(require_react(), 1);
 
   // node_modules/@mui/material/Card/Card.js
-  var React73 = __toESM(require_react());
-  var import_prop_types57 = __toESM(require_prop_types());
+  var React71 = __toESM(require_react());
+  var import_prop_types56 = __toESM(require_prop_types());
 
   // node_modules/@mui/material/Card/cardClasses.js
   function getCardUtilityClass(slot) {
@@ -45949,9 +45703,9 @@ Please use another name.` : formatMuiErrorMessage(18));
   var cardClasses = generateUtilityClasses("MuiCard", ["root"]);
 
   // node_modules/@mui/material/Card/Card.js
-  var import_jsx_runtime69 = __toESM(require_jsx_runtime());
-  var _excluded50 = ["className", "raised"];
-  var useUtilityClasses30 = (ownerState) => {
+  var import_jsx_runtime67 = __toESM(require_jsx_runtime());
+  var _excluded49 = ["className", "raised"];
+  var useUtilityClasses29 = (ownerState) => {
     const {
       classes
     } = ownerState;
@@ -45969,7 +45723,7 @@ Please use another name.` : formatMuiErrorMessage(18));
       overflow: "hidden"
     };
   });
-  var Card = /* @__PURE__ */ React73.forwardRef(function Card2(inProps, ref) {
+  var Card = /* @__PURE__ */ React71.forwardRef(function Card2(inProps, ref) {
     const props = useThemeProps2({
       props: inProps,
       name: "MuiCard"
@@ -45977,12 +45731,12 @@ Please use another name.` : formatMuiErrorMessage(18));
     const {
       className,
       raised = false
-    } = props, other = _objectWithoutPropertiesLoose(props, _excluded50);
+    } = props, other = _objectWithoutPropertiesLoose(props, _excluded49);
     const ownerState = _extends({}, props, {
       raised
     });
-    const classes = useUtilityClasses30(ownerState);
-    return /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(CardRoot, _extends({
+    const classes = useUtilityClasses29(ownerState);
+    return /* @__PURE__ */ (0, import_jsx_runtime67.jsx)(CardRoot, _extends({
       className: clsx_m_default(classes.root, className),
       elevation: raised ? 8 : void 0,
       ref,
@@ -45997,20 +45751,20 @@ Please use another name.` : formatMuiErrorMessage(18));
     /**
      * The content of the component.
      */
-    children: import_prop_types57.default.node,
+    children: import_prop_types56.default.node,
     /**
      * Override or extend the styles applied to the component.
      */
-    classes: import_prop_types57.default.object,
+    classes: import_prop_types56.default.object,
     /**
      * @ignore
      */
-    className: import_prop_types57.default.string,
+    className: import_prop_types56.default.string,
     /**
      * If `true`, the card will use raised styling.
      * @default false
      */
-    raised: chainPropTypes(import_prop_types57.default.bool, (props) => {
+    raised: chainPropTypes(import_prop_types56.default.bool, (props) => {
       if (props.raised && props.variant === "outlined") {
         return new Error('MUI: Combining `raised={true}` with `variant="outlined"` has no effect.');
       }
@@ -46019,13 +45773,13 @@ Please use another name.` : formatMuiErrorMessage(18));
     /**
      * The system prop that allows defining system overrides as well as additional CSS styles.
      */
-    sx: import_prop_types57.default.oneOfType([import_prop_types57.default.arrayOf(import_prop_types57.default.oneOfType([import_prop_types57.default.func, import_prop_types57.default.object, import_prop_types57.default.bool])), import_prop_types57.default.func, import_prop_types57.default.object])
+    sx: import_prop_types56.default.oneOfType([import_prop_types56.default.arrayOf(import_prop_types56.default.oneOfType([import_prop_types56.default.func, import_prop_types56.default.object, import_prop_types56.default.bool])), import_prop_types56.default.func, import_prop_types56.default.object])
   } : void 0;
   var Card_default = Card;
 
   // node_modules/@mui/material/CardActions/CardActions.js
-  var React74 = __toESM(require_react());
-  var import_prop_types58 = __toESM(require_prop_types());
+  var React72 = __toESM(require_react());
+  var import_prop_types57 = __toESM(require_prop_types());
 
   // node_modules/@mui/material/CardActions/cardActionsClasses.js
   function getCardActionsUtilityClass(slot) {
@@ -46034,9 +45788,9 @@ Please use another name.` : formatMuiErrorMessage(18));
   var cardActionsClasses = generateUtilityClasses("MuiCardActions", ["root", "spacing"]);
 
   // node_modules/@mui/material/CardActions/CardActions.js
-  var import_jsx_runtime70 = __toESM(require_jsx_runtime());
-  var _excluded51 = ["disableSpacing", "className"];
-  var useUtilityClasses31 = (ownerState) => {
+  var import_jsx_runtime68 = __toESM(require_jsx_runtime());
+  var _excluded50 = ["disableSpacing", "className"];
+  var useUtilityClasses30 = (ownerState) => {
     const {
       classes,
       disableSpacing
@@ -46066,7 +45820,7 @@ Please use another name.` : formatMuiErrorMessage(18));
       marginLeft: 8
     }
   }));
-  var CardActions = /* @__PURE__ */ React74.forwardRef(function CardActions2(inProps, ref) {
+  var CardActions = /* @__PURE__ */ React72.forwardRef(function CardActions2(inProps, ref) {
     const props = useThemeProps2({
       props: inProps,
       name: "MuiCardActions"
@@ -46074,12 +45828,12 @@ Please use another name.` : formatMuiErrorMessage(18));
     const {
       disableSpacing = false,
       className
-    } = props, other = _objectWithoutPropertiesLoose(props, _excluded51);
+    } = props, other = _objectWithoutPropertiesLoose(props, _excluded50);
     const ownerState = _extends({}, props, {
       disableSpacing
     });
-    const classes = useUtilityClasses31(ownerState);
-    return /* @__PURE__ */ (0, import_jsx_runtime70.jsx)(CardActionsRoot, _extends({
+    const classes = useUtilityClasses30(ownerState);
+    return /* @__PURE__ */ (0, import_jsx_runtime68.jsx)(CardActionsRoot, _extends({
       className: clsx_m_default(classes.root, className),
       ownerState,
       ref
@@ -46093,30 +45847,30 @@ Please use another name.` : formatMuiErrorMessage(18));
     /**
      * The content of the component.
      */
-    children: import_prop_types58.default.node,
+    children: import_prop_types57.default.node,
     /**
      * Override or extend the styles applied to the component.
      */
-    classes: import_prop_types58.default.object,
+    classes: import_prop_types57.default.object,
     /**
      * @ignore
      */
-    className: import_prop_types58.default.string,
+    className: import_prop_types57.default.string,
     /**
      * If `true`, the actions do not have additional margin.
      * @default false
      */
-    disableSpacing: import_prop_types58.default.bool,
+    disableSpacing: import_prop_types57.default.bool,
     /**
      * The system prop that allows defining system overrides as well as additional CSS styles.
      */
-    sx: import_prop_types58.default.oneOfType([import_prop_types58.default.arrayOf(import_prop_types58.default.oneOfType([import_prop_types58.default.func, import_prop_types58.default.object, import_prop_types58.default.bool])), import_prop_types58.default.func, import_prop_types58.default.object])
+    sx: import_prop_types57.default.oneOfType([import_prop_types57.default.arrayOf(import_prop_types57.default.oneOfType([import_prop_types57.default.func, import_prop_types57.default.object, import_prop_types57.default.bool])), import_prop_types57.default.func, import_prop_types57.default.object])
   } : void 0;
   var CardActions_default = CardActions;
 
   // node_modules/@mui/material/CardContent/CardContent.js
-  var React75 = __toESM(require_react());
-  var import_prop_types59 = __toESM(require_prop_types());
+  var React73 = __toESM(require_react());
+  var import_prop_types58 = __toESM(require_prop_types());
 
   // node_modules/@mui/material/CardContent/cardContentClasses.js
   function getCardContentUtilityClass(slot) {
@@ -46125,9 +45879,9 @@ Please use another name.` : formatMuiErrorMessage(18));
   var cardContentClasses = generateUtilityClasses("MuiCardContent", ["root"]);
 
   // node_modules/@mui/material/CardContent/CardContent.js
-  var import_jsx_runtime71 = __toESM(require_jsx_runtime());
-  var _excluded52 = ["className", "component"];
-  var useUtilityClasses32 = (ownerState) => {
+  var import_jsx_runtime69 = __toESM(require_jsx_runtime());
+  var _excluded51 = ["className", "component"];
+  var useUtilityClasses31 = (ownerState) => {
     const {
       classes
     } = ownerState;
@@ -46148,7 +45902,7 @@ Please use another name.` : formatMuiErrorMessage(18));
       }
     };
   });
-  var CardContent = /* @__PURE__ */ React75.forwardRef(function CardContent2(inProps, ref) {
+  var CardContent = /* @__PURE__ */ React73.forwardRef(function CardContent2(inProps, ref) {
     const props = useThemeProps2({
       props: inProps,
       name: "MuiCardContent"
@@ -46156,12 +45910,12 @@ Please use another name.` : formatMuiErrorMessage(18));
     const {
       className,
       component = "div"
-    } = props, other = _objectWithoutPropertiesLoose(props, _excluded52);
+    } = props, other = _objectWithoutPropertiesLoose(props, _excluded51);
     const ownerState = _extends({}, props, {
       component
     });
-    const classes = useUtilityClasses32(ownerState);
-    return /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(CardContentRoot, _extends({
+    const classes = useUtilityClasses31(ownerState);
+    return /* @__PURE__ */ (0, import_jsx_runtime69.jsx)(CardContentRoot, _extends({
       as: component,
       className: clsx_m_default(classes.root, className),
       ownerState,
@@ -46175,6 +45929,229 @@ Please use another name.` : formatMuiErrorMessage(18));
     // ----------------------------------------------------------------------
     /**
      * The content of the component.
+     */
+    children: import_prop_types58.default.node,
+    /**
+     * Override or extend the styles applied to the component.
+     */
+    classes: import_prop_types58.default.object,
+    /**
+     * @ignore
+     */
+    className: import_prop_types58.default.string,
+    /**
+     * The component used for the root node.
+     * Either a string to use a HTML element or a component.
+     */
+    component: import_prop_types58.default.elementType,
+    /**
+     * The system prop that allows defining system overrides as well as additional CSS styles.
+     */
+    sx: import_prop_types58.default.oneOfType([import_prop_types58.default.arrayOf(import_prop_types58.default.oneOfType([import_prop_types58.default.func, import_prop_types58.default.object, import_prop_types58.default.bool])), import_prop_types58.default.func, import_prop_types58.default.object])
+  } : void 0;
+  var CardContent_default = CardContent;
+
+  // node_modules/@mui/material/Avatar/Avatar.js
+  var React75 = __toESM(require_react());
+  var import_prop_types59 = __toESM(require_prop_types());
+
+  // node_modules/@mui/material/internal/svg-icons/Person.js
+  var React74 = __toESM(require_react());
+  var import_jsx_runtime70 = __toESM(require_jsx_runtime());
+  var Person_default = createSvgIcon(/* @__PURE__ */ (0, import_jsx_runtime70.jsx)("path", {
+    d: "M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+  }), "Person");
+
+  // node_modules/@mui/material/Avatar/avatarClasses.js
+  function getAvatarUtilityClass(slot) {
+    return generateUtilityClass("MuiAvatar", slot);
+  }
+  var avatarClasses = generateUtilityClasses("MuiAvatar", ["root", "colorDefault", "circular", "rounded", "square", "img", "fallback"]);
+
+  // node_modules/@mui/material/Avatar/Avatar.js
+  var import_jsx_runtime71 = __toESM(require_jsx_runtime());
+  var _excluded52 = ["alt", "children", "className", "component", "imgProps", "sizes", "src", "srcSet", "variant"];
+  var useUtilityClasses32 = (ownerState) => {
+    const {
+      classes,
+      variant,
+      colorDefault
+    } = ownerState;
+    const slots = {
+      root: ["root", variant, colorDefault && "colorDefault"],
+      img: ["img"],
+      fallback: ["fallback"]
+    };
+    return composeClasses(slots, getAvatarUtilityClass, classes);
+  };
+  var AvatarRoot = styled_default2("div", {
+    name: "MuiAvatar",
+    slot: "Root",
+    overridesResolver: (props, styles5) => {
+      const {
+        ownerState
+      } = props;
+      return [styles5.root, styles5[ownerState.variant], ownerState.colorDefault && styles5.colorDefault];
+    }
+  })(({
+    theme,
+    ownerState
+  }) => _extends({
+    position: "relative",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    width: 40,
+    height: 40,
+    fontFamily: theme.typography.fontFamily,
+    fontSize: theme.typography.pxToRem(20),
+    lineHeight: 1,
+    borderRadius: "50%",
+    overflow: "hidden",
+    userSelect: "none"
+  }, ownerState.variant === "rounded" && {
+    borderRadius: (theme.vars || theme).shape.borderRadius
+  }, ownerState.variant === "square" && {
+    borderRadius: 0
+  }, ownerState.colorDefault && _extends({
+    color: (theme.vars || theme).palette.background.default
+  }, theme.vars ? {
+    backgroundColor: theme.vars.palette.Avatar.defaultBg
+  } : {
+    backgroundColor: theme.palette.mode === "light" ? theme.palette.grey[400] : theme.palette.grey[600]
+  })));
+  var AvatarImg = styled_default2("img", {
+    name: "MuiAvatar",
+    slot: "Img",
+    overridesResolver: (props, styles5) => styles5.img
+  })({
+    width: "100%",
+    height: "100%",
+    textAlign: "center",
+    // Handle non-square image. The property isn't supported by IE11.
+    objectFit: "cover",
+    // Hide alt text.
+    color: "transparent",
+    // Hide the image broken icon, only works on Chrome.
+    textIndent: 1e4
+  });
+  var AvatarFallback = styled_default2(Person_default, {
+    name: "MuiAvatar",
+    slot: "Fallback",
+    overridesResolver: (props, styles5) => styles5.fallback
+  })({
+    width: "75%",
+    height: "75%"
+  });
+  function useLoaded({
+    crossOrigin,
+    referrerPolicy,
+    src,
+    srcSet
+  }) {
+    const [loaded, setLoaded] = React75.useState(false);
+    React75.useEffect(() => {
+      if (!src && !srcSet) {
+        return void 0;
+      }
+      setLoaded(false);
+      let active = true;
+      const image = new Image();
+      image.onload = () => {
+        if (!active) {
+          return;
+        }
+        setLoaded("loaded");
+      };
+      image.onerror = () => {
+        if (!active) {
+          return;
+        }
+        setLoaded("error");
+      };
+      image.crossOrigin = crossOrigin;
+      image.referrerPolicy = referrerPolicy;
+      image.src = src;
+      if (srcSet) {
+        image.srcset = srcSet;
+      }
+      return () => {
+        active = false;
+      };
+    }, [crossOrigin, referrerPolicy, src, srcSet]);
+    return loaded;
+  }
+  var Avatar = /* @__PURE__ */ React75.forwardRef(function Avatar2(inProps, ref) {
+    const props = useThemeProps2({
+      props: inProps,
+      name: "MuiAvatar"
+    });
+    const {
+      alt,
+      children: childrenProp,
+      className,
+      component = "div",
+      imgProps,
+      sizes,
+      src,
+      srcSet,
+      variant = "circular"
+    } = props, other = _objectWithoutPropertiesLoose(props, _excluded52);
+    let children = null;
+    const loaded = useLoaded(_extends({}, imgProps, {
+      src,
+      srcSet
+    }));
+    const hasImg = src || srcSet;
+    const hasImgNotFailing = hasImg && loaded !== "error";
+    const ownerState = _extends({}, props, {
+      colorDefault: !hasImgNotFailing,
+      component,
+      variant
+    });
+    const classes = useUtilityClasses32(ownerState);
+    if (hasImgNotFailing) {
+      children = /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(AvatarImg, _extends({
+        alt,
+        src,
+        srcSet,
+        sizes,
+        ownerState,
+        className: classes.img
+      }, imgProps));
+    } else if (childrenProp != null) {
+      children = childrenProp;
+    } else if (hasImg && alt) {
+      children = alt[0];
+    } else {
+      children = /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(AvatarFallback, {
+        ownerState,
+        className: classes.fallback
+      });
+    }
+    return /* @__PURE__ */ (0, import_jsx_runtime71.jsx)(AvatarRoot, _extends({
+      as: component,
+      ownerState,
+      className: clsx_m_default(classes.root, className),
+      ref
+    }, other, {
+      children
+    }));
+  });
+  true ? Avatar.propTypes = {
+    // ----------------------------- Warning --------------------------------
+    // | These PropTypes are generated from the TypeScript type definitions |
+    // |     To update them edit the d.ts file and run "yarn proptypes"     |
+    // ----------------------------------------------------------------------
+    /**
+     * Used in combination with `src` or `srcSet` to
+     * provide an alt attribute for the rendered `img` element.
+     */
+    alt: import_prop_types59.default.string,
+    /**
+     * Used to render icon or text elements inside the Avatar if `src` is not set.
+     * This can be an element, or just a string.
      */
     children: import_prop_types59.default.node,
     /**
@@ -46191,11 +46168,34 @@ Please use another name.` : formatMuiErrorMessage(18));
      */
     component: import_prop_types59.default.elementType,
     /**
+     * [Attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/img#attributes) applied to the `img` element if the component is used to display an image.
+     * It can be used to listen for the loading error event.
+     */
+    imgProps: import_prop_types59.default.object,
+    /**
+     * The `sizes` attribute for the `img` element.
+     */
+    sizes: import_prop_types59.default.string,
+    /**
+     * The `src` attribute for the `img` element.
+     */
+    src: import_prop_types59.default.string,
+    /**
+     * The `srcSet` attribute for the `img` element.
+     * Use this attribute for responsive image display.
+     */
+    srcSet: import_prop_types59.default.string,
+    /**
      * The system prop that allows defining system overrides as well as additional CSS styles.
      */
-    sx: import_prop_types59.default.oneOfType([import_prop_types59.default.arrayOf(import_prop_types59.default.oneOfType([import_prop_types59.default.func, import_prop_types59.default.object, import_prop_types59.default.bool])), import_prop_types59.default.func, import_prop_types59.default.object])
+    sx: import_prop_types59.default.oneOfType([import_prop_types59.default.arrayOf(import_prop_types59.default.oneOfType([import_prop_types59.default.func, import_prop_types59.default.object, import_prop_types59.default.bool])), import_prop_types59.default.func, import_prop_types59.default.object]),
+    /**
+     * The shape of the avatar.
+     * @default 'circular'
+     */
+    variant: import_prop_types59.default.oneOfType([import_prop_types59.default.oneOf(["circular", "rounded", "square"]), import_prop_types59.default.string])
   } : void 0;
-  var CardContent_default = CardContent;
+  var Avatar_default = Avatar;
 
   // node_modules/@mui/material/CardHeader/CardHeader.js
   var React76 = __toESM(require_react());
@@ -46395,8 +46395,8 @@ Please use another name.` : formatMuiErrorMessage(18));
 
   // client/components/ChatCard.jsx
   function ChatCard(props) {
-    const { username, message, self: self2 } = props;
-    return /* @__PURE__ */ import_react14.default.createElement(import_react14.default.Fragment, null, /* @__PURE__ */ import_react14.default.createElement(Card_default, { sx: { margin: 2, width: "50%", float: self2 === true ? "right" : "left" } }, /* @__PURE__ */ import_react14.default.createElement(
+    const { username, message, self: self2, joined } = props;
+    return /* @__PURE__ */ import_react14.default.createElement(import_react14.default.Fragment, null, joined ? /* @__PURE__ */ import_react14.default.createElement(Card_default, { sx: { margin: 2, width: "50%", float: self2 === true ? "right" : "left" } }, /* @__PURE__ */ import_react14.default.createElement(CardContent_default, null, /* @__PURE__ */ import_react14.default.createElement(Typography_default, { variant: "h5", component: "div" }, message))) : /* @__PURE__ */ import_react14.default.createElement(Card_default, { sx: { margin: 2, width: "50%", float: self2 === true ? "right" : "left" } }, /* @__PURE__ */ import_react14.default.createElement(
       CardHeader_default,
       {
         avatar: /* @__PURE__ */ import_react14.default.createElement(Avatar_default, { sx: { bgcolor: blue_default[500] }, "aria-label": "recipe" }, username == null ? void 0 : username.charAt(0)),
@@ -46423,7 +46423,7 @@ Please use another name.` : formatMuiErrorMessage(18));
       socket.on("disconnect", () => setTime("server disconnected"));
       const user = prompt("Enter a Username");
       setUsername(user);
-      socket.emit("set_username", { message: user });
+      socket.emit("set_username", { message: user, username });
     }, []);
     const sendMessage = (e) => {
       if (e.key === "Enter") {
@@ -46445,9 +46445,12 @@ Please use another name.` : formatMuiErrorMessage(18));
       socket.on("receive_message", (data) => {
         setMessages([...messages, { message: data.message, username: data.username, self: false }]);
       });
+      socket.on("join_room", (data) => {
+        setMessages([...messages, { message: `${data.message} has joined the room.`, username: "", self: false, joined: true }]);
+      });
     }, [socket, messages]);
     return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10 } }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { container: true, spacing: 3, columns: 12 }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3 }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "messages-container", style: { height: "100%" }, ref: messageContainer }, messages.map(
-      (msgg, i2) => /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self })
+      (msgg, i2) => msgg.joined ? /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self, joined: msgg.joined }) : /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self })
     ))), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3, style: { width: "100%", bottom: 0 } }), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 10, padding: 3, style: { width: "100%", position: "fixed", bottom: 0, float: "left" } }, /* @__PURE__ */ import_react15.default.createElement(TextField_default, { autoComplete: "false", id: "outlined-basic", label: "Send Message", variant: "outlined", fullWidth: true, onChange: (e) => {
       setMessage(e.target.value);
     }, onKeyDown: sendMessage })))));

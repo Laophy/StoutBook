@@ -4,19 +4,15 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Grid from '@mui/material/Unstable_Grid2'
 
-import Avatar from '@mui/material/Avatar'
-import { blue } from '@mui/material/colors'
-import FormControl from '@mui/material/FormControl'
-import InputAdornment from '@mui/material/InputAdornment'
-
 // Client socket connection
 import { io } from 'socket.io-client'
 import ChatCard from './ChatCard'
 
 const domain = 'https://laophy.com'
+// const domain = 'http://localhost:3000'
 const socket = io(domain)
 
-export default function ChatRoom(props) {
+export default function ChatRoom (props) {
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([])
   const [username, setUsername] = React.useState('YOU')
@@ -33,7 +29,7 @@ export default function ChatRoom(props) {
 
     const user = prompt('Enter a Username')
     setUsername(user)
-    socket.emit('set_username', { message: user })
+    socket.emit('set_username', { message: user, username })
   }, [])
 
   const sendMessage = (e) => {
@@ -59,6 +55,10 @@ export default function ChatRoom(props) {
       // alert(data.message)
       setMessages([...messages, { message: data.message, username: data.username, self: false }])
     })
+    socket.on('join_room', (data) => {
+      // alert(data.message)
+      setMessages([...messages, { message: `${data.message} has joined the room.`, username: '', self: false, joined: true }])
+    })
   }, [socket, messages])
 
   return (
@@ -69,7 +69,9 @@ export default function ChatRoom(props) {
             <div className='messages-container' style={{ height: '100%' }} ref={messageContainer}>
               {
                 messages.map((msgg, i) =>
-                  (<ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} />)
+                  (msgg.joined
+                    ? <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} joined={msgg.joined}/>
+                    : <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} />)
                 )
               }
             </div>
