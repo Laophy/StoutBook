@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography'
 // Client socket connection
 import { io } from 'socket.io-client'
 
-// const domain = 'https://laophy.com'
-const domain = 'http://localhost:3000'
+const domain = 'https://laophy.com'
+// const domain = 'http://localhost:3000'
 const socket = io(domain)
 
 export default function OnlineUsers (props) {
