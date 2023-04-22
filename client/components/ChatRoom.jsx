@@ -58,10 +58,10 @@ export default function ChatRoom (props) {
       setMessages([...messages, { message: `${data.username} has joined the room.`, username: '', self: false, joined: true }])
     })
     // Not working
-    socket.on('leave_room', (socketid) => {
-      // alert(data.message)
-      setMessages([...messages, { message: `${socketid} has left the room.`, username: '', self: false, joined: true }])
-    })
+    // socket.on('leave_room', (socketid) => {
+    //   // alert(data.message)
+    //   setMessages([...messages, { message: `${socketid} has left the room.`, username: '', self: false, joined: true }])
+    // })
   }, [socket, messages])
 
   return (

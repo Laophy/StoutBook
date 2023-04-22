@@ -46468,9 +46468,6 @@ Please use another name.` : formatMuiErrorMessage(18));
       socket.on("join_room", (data) => {
         setMessages([...messages, { message: `${data.username} has joined the room.`, username: "", self: false, joined: true }]);
       });
-      socket.on("leave_room", (socketid) => {
-        setMessages([...messages, { message: `${socketid} has left the room.`, username: "", self: false, joined: true }]);
-      });
     }, [socket, messages]);
     return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10, boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;", width: "75%", height: "75vh", float: "left", overflow: "auto", overflowX: "hidden" }, ref: messageContainer }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { container: true, spacing: 3, columns: 16 }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3 }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "messages-container", style: { height: "100%" } }, messages.map(
       (msgg, i2) => msgg.joined ? /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self, joined: msgg.joined }) : /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self })
