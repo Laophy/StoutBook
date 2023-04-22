@@ -20,13 +20,15 @@ export default function ChatRoom (props) {
   const [time, setTime] = React.useState('fetching')
 
   React.useEffect(() => {
-    socket.on('connect', async () => await setUsername(prompt('Enter a Username')))
+    socket.on('connect', () => setUsername(prompt('Enter a Username')))
     socket.on('connect_error', () => {
       setTimeout(() => socket.connect(), 3001)
     })
     socket.on('time', (data) => setTime(data))
     socket.on('disconnect', () => setTime('server disconnected'))
+  }, [])
 
+  React.useEffect(() => {
     socket.emit('set_username', { username })
   }, [username])
 
@@ -58,10 +60,10 @@ export default function ChatRoom (props) {
       setMessages([...messages, { message: `${data.username} has joined the room.`, username: '', self: false, joined: true }])
     })
     // Not working
-    socket.on('leave_room', (socketid) => {
-      // alert(data.message)
-      setMessages([...messages, { message: `${socketid} has left the room.`, username: '', self: false, joined: true }])
-    })
+    // socket.on('leave_room', (socketid) => {
+    //   // alert(data.message)
+    //   setMessages([...messages, { message: `${socketid} has left the room.`, username: '', self: false, joined: true }])
+    // })
   }, [socket, messages])
 
   return (

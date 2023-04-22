@@ -29,26 +29,6 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
-  var __async = (__this, __arguments, generator) => {
-    return new Promise((resolve, reject) => {
-      var fulfilled = (value2) => {
-        try {
-          step(generator.next(value2));
-        } catch (e) {
-          reject(e);
-        }
-      };
-      var rejected = (value2) => {
-        try {
-          step(generator.throw(value2));
-        } catch (e) {
-          reject(e);
-        }
-      };
-      var step = (x) => x.done ? resolve(x.value) : Promise.resolve(x.value).then(fulfilled, rejected);
-      step((generator = generator.apply(__this, __arguments)).next());
-    });
-  };
 
   // node_modules/react/cjs/react.development.js
   var require_react_development = __commonJS({
@@ -46435,14 +46415,14 @@ Please use another name.` : formatMuiErrorMessage(18));
     const messageContainer = import_react15.default.useRef(null);
     const [time, setTime] = import_react15.default.useState("fetching");
     import_react15.default.useEffect(() => {
-      socket.on("connect", () => __async(this, null, function* () {
-        return yield setUsername(prompt("Enter a Username"));
-      }));
+      socket.on("connect", () => setUsername(prompt("Enter a Username")));
       socket.on("connect_error", () => {
         setTimeout(() => socket.connect(), 3001);
       });
       socket.on("time", (data) => setTime(data));
       socket.on("disconnect", () => setTime("server disconnected"));
+    }, []);
+    import_react15.default.useEffect(() => {
       socket.emit("set_username", { username });
     }, [username]);
     const sendMessage = (e) => {
@@ -46478,13 +46458,15 @@ Please use another name.` : formatMuiErrorMessage(18));
 
   // client/components/OnlineUsers.jsx
   var import_react16 = __toESM(require_react(), 1);
-  var domain2 = "http://localhost:3000";
+  var domain2 = "https://laophy.com";
   var socket2 = lookup2(domain2);
   function OnlineUsers(props) {
     const [users, setUsers] = import_react16.default.useState([]);
     import_react16.default.useEffect(() => {
       socket2.on("join_room", (data, socketid) => {
-        setUsers([...users, { username: data.username, id: socketid }]);
+        setUsers([...users.filter((usr) => {
+          return usr.id !== socketid;
+        }), { username: data.username, id: socketid }]);
       });
       socket2.on("leave_room", (socketid) => {
         setUsers([...users.filter((plr) => {

@@ -10,7 +10,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import { blue } from '@mui/material/colors'
 
-export default function ChatCard(props) {
+export default function ChatCard (props) {
   const { username, message, self, joined } = props
   return (
     <React.Fragment>

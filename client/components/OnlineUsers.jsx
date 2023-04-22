@@ -15,7 +15,7 @@ export default function OnlineUsers (props) {
   const [users, setUsers] = React.useState([])
   React.useEffect(() => {
     socket.on('join_room', (data, socketid) => {
-      setUsers([...users, { username: data.username, id: socketid }])
+      setUsers([...users.filter(usr => { return usr.id !== socketid }), { username: data.username, id: socketid }])
     })
     socket.on('leave_room', (socketid) => {
       setUsers([...users.filter((plr) => { return plr.id !== socketid })])
