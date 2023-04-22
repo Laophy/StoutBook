@@ -31,7 +31,9 @@ export default function ChatRoom(props) {
     socket.on('time', (data) => setTime(data))
     socket.on('disconnect', () => setTime('server disconnected'))
 
-    setUsername(prompt('Enter a Username'))
+    const user = prompt('Enter a Username')
+    setUsername(user)
+    socket.emit('set_username', { message: user })
   }, [])
 
   const sendMessage = (e) => {

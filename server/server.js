@@ -27,6 +27,10 @@ io.on('connection', (socket) => {
   // Someone opens the website and opens the client
   console.log(`User connected: ${socket.id}`)
 
+  socket.on('set_username', (data) => {
+    console.log(`Username was set: ${data.message} for ID: ${socket.id}`)
+  })
+
   socket.on('send_message', (data) => {
     socket.broadcast.emit('receive_message', data)
   })
