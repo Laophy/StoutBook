@@ -22,7 +22,7 @@ export default function OnlineUsers (props) {
   }, [socket, users])
   return (
     <React.Fragment>
-      <Box sx={{ flexGrow: 1, marginTop: 10, marginLeft: 1, marginRight: 5, boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;', width: '15%', height: '75vh', float: 'left', overflow: 'auto', overflowX: 'hidden', padding: 2, minWidth: '250' }}>
+      <Box sx={{ flexGrow: 1, marginTop: 10, marginLeft: 1, marginRight: 5, boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;', width: '100%', height: '85vh', float: 'left', overflow: 'auto', overflowX: 'hidden', padding: 2, minWidth: '250' }}>
           <Typography variant="h5" component="h1" sx={{ flexGrow: 1 }}>
             Online Users
           </Typography>

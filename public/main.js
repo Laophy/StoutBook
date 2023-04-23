@@ -42582,14 +42582,14 @@ Please use another name.` : formatMuiErrorMessage(18));
         "aria-label": "menu",
         sx: { mr: 2 }
       }
-    ), /* @__PURE__ */ import_react13.default.createElement(Typography_default, { variant: "h6", component: "div", sx: { flexGrow: 1 } }, "StoutBook"), /* @__PURE__ */ import_react13.default.createElement(TextField_default, { autoComplete: "false", id: "standard-basic", label: "Edit Name", variant: "standard", onChange: (e) => {
+    ), /* @__PURE__ */ import_react13.default.createElement(Typography_default, { variant: "h6", component: "div", sx: { flexGrow: 1 } }, "StoutBook"), /* @__PURE__ */ import_react13.default.createElement(TextField_default, { size: "small", autoComplete: "false", id: "outlined-basic", label: "Edit Name", variant: "outlined", onChange: (e) => {
       updateName(e.target.value);
     }, onKeyDown: () => {
     }, defaultValue: "Anonymous" })))));
   }
 
   // client/components/ChatRoom.jsx
-  var import_react15 = __toESM(require_react(), 1);
+  var import_react16 = __toESM(require_react(), 1);
 
   // node_modules/@mui/material/Unstable_Grid2/Grid2.js
   var import_prop_types55 = __toESM(require_prop_types());
@@ -46406,43 +46406,64 @@ Please use another name.` : formatMuiErrorMessage(18));
     ), /* @__PURE__ */ import_react14.default.createElement(CardContent_default, null, /* @__PURE__ */ import_react14.default.createElement(Typography_default, { variant: "h5", component: "div" }, message)), /* @__PURE__ */ import_react14.default.createElement(CardActions_default, null, /* @__PURE__ */ import_react14.default.createElement(Button_default, { size: "small" }, "Reply"))));
   }
 
-  // client/components/ChatRoom.jsx
-  var domain = "http://localhost:3000";
+  // client/components/OnlineUsers.jsx
+  var import_react15 = __toESM(require_react(), 1);
+  var domain = "https://laophy.com";
   var socket = lookup2(domain);
+  function OnlineUsers(props) {
+    const [users, setUsers] = import_react15.default.useState([]);
+    import_react15.default.useEffect(() => {
+      socket.on("join_room", (data, socketid) => {
+        setUsers([...users.filter((usr) => {
+          return usr.id !== socketid;
+        }), { username: data.username, id: socketid }]);
+      });
+      socket.on("leave_room", (socketid) => {
+        setUsers([...users.filter((plr) => {
+          return plr.id !== socketid;
+        })]);
+      });
+    }, [socket, users]);
+    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10, marginLeft: 1, marginRight: 5, boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;", width: "100%", height: "85vh", float: "left", overflow: "auto", overflowX: "hidden", padding: 2, minWidth: "250" } }, /* @__PURE__ */ import_react15.default.createElement(Typography_default, { variant: "h5", component: "h1", sx: { flexGrow: 1 } }, "Online Users"), /* @__PURE__ */ import_react15.default.createElement("ul", null, users.map((user, i2) => /* @__PURE__ */ import_react15.default.createElement("li", { key: i2 }, i2, " - ", user.username)))));
+  }
+
+  // client/components/ChatRoom.jsx
+  var domain2 = "https://laophy.com";
+  var socket2 = lookup2(domain2);
   function ChatRoom(props) {
     const { newusername } = props;
-    const [message, setMessage] = import_react15.default.useState("");
-    const [messages, setMessages] = import_react15.default.useState([]);
-    const [username, setUsername] = import_react15.default.useState("");
-    const messageContainer = import_react15.default.useRef(null);
-    const [time, setTime] = import_react15.default.useState("fetching");
-    import_react15.default.useEffect(() => {
+    const [message, setMessage] = import_react16.default.useState("");
+    const [messages, setMessages] = import_react16.default.useState([]);
+    const [username, setUsername] = import_react16.default.useState("");
+    const messageContainer = import_react16.default.useRef(null);
+    const [time, setTime] = import_react16.default.useState("fetching");
+    import_react16.default.useEffect(() => {
       setUsername(newusername);
     }, [newusername]);
-    import_react15.default.useEffect(() => {
-      socket.on("connect", () => {
-        console.log(`Connected: ID: ${socket.id}`);
+    import_react16.default.useEffect(() => {
+      socket2.on("connect", () => {
+        console.log(`Connected: ID: ${socket2.id}`);
         setUsername(newusername);
       });
-      socket.on("connect_error", () => {
-        setTimeout(() => socket.connect(), 3001);
+      socket2.on("connect_error", () => {
+        setTimeout(() => socket2.connect(), 3001);
       });
-      socket.on("time", (data) => setTime(data));
-      socket.on("disconnect", () => setTime("server disconnected"));
+      socket2.on("time", (data) => setTime(data));
+      socket2.on("disconnect", () => setTime("server disconnected"));
     }, []);
-    import_react15.default.useEffect(() => {
+    import_react16.default.useEffect(() => {
       if (username !== "") {
-        socket.emit("set_username", { username });
+        socket2.emit("set_username", { username });
       }
     }, [username]);
     const sendMessage = (e) => {
       if (e.key === "Enter") {
-        socket.emit("send_message", { message, username });
+        socket2.emit("send_message", { message, username });
         setMessages([...messages, { message, username, self: true }]);
         e.target.value = "";
       }
     };
-    import_react15.default.useEffect(() => {
+    import_react16.default.useEffect(() => {
       if (messageContainer) {
         messageContainer.current.addEventListener("DOMNodeInserted", (event) => {
           const { currentTarget: target } = event;
@@ -46451,48 +46472,27 @@ Please use another name.` : formatMuiErrorMessage(18));
         });
       }
     }, [messages]);
-    import_react15.default.useEffect(() => {
-      socket.on("receive_message", (data) => {
+    import_react16.default.useEffect(() => {
+      socket2.on("receive_message", (data) => {
         setMessages([...messages, { message: data.message, username: data.username, self: false }]);
       });
-      socket.on("join_room", (data, socketid) => {
+      socket2.on("join_room", (data, socketid) => {
         if (!messages.find((msg) => msg.id === socketid)) {
           setMessages([...messages, { message: `${data.username} has joined the room.`, username: data.username, self: false, joined: true, id: socketid }]);
         }
       });
-      socket.on("leave_room", (socketid) => {
+      socket2.on("leave_room", (socketid) => {
         const name = messages.find((msg) => msg.id === socketid);
         if (name) {
           setMessages([...messages, { message: `${name.username} has left the room.`, username: "", self: false, joined: true, id: socketid }]);
         }
       });
-    }, [socket, messages]);
-    return /* @__PURE__ */ import_react15.default.createElement(import_react15.default.Fragment, null, /* @__PURE__ */ import_react15.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10, boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;", width: "75%", height: "75vh", float: "left", overflow: "auto", overflowX: "hidden" }, ref: messageContainer }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { container: true, spacing: 3, columns: 16 }, /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3 }, /* @__PURE__ */ import_react15.default.createElement("div", { className: "messages-container", style: { height: "100%" } }, messages.map(
-      (msgg, i2) => msgg.joined ? /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self, joined: msgg.joined }) : /* @__PURE__ */ import_react15.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self })
-    ))), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 16, padding: 3, style: { width: "100%", bottom: 0 } }))), /* @__PURE__ */ import_react15.default.createElement(Grid2_default, { xs: 10, padding: 3, style: { width: "100%", position: "fixed", bottom: 0, float: "left" } }, /* @__PURE__ */ import_react15.default.createElement(TextField_default, { autoComplete: "false", id: "outlined-basic", label: "Send Message", variant: "outlined", fullWidth: true, onChange: (e) => {
+    }, [socket2, messages]);
+    return /* @__PURE__ */ import_react16.default.createElement(import_react16.default.Fragment, null, /* @__PURE__ */ import_react16.default.createElement(Grid2_default, { container: true, spacing: 2 }, /* @__PURE__ */ import_react16.default.createElement(Grid2_default, { xs: 3 }, /* @__PURE__ */ import_react16.default.createElement(OnlineUsers, null)), /* @__PURE__ */ import_react16.default.createElement(Grid2_default, { xs: 9 }, /* @__PURE__ */ import_react16.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10, boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;", width: "100%", height: "85vh", float: "right", overflow: "auto", overflowX: "hidden" }, ref: messageContainer }, /* @__PURE__ */ import_react16.default.createElement(Grid2_default, { container: true, spacing: 3, columns: 16 }, /* @__PURE__ */ import_react16.default.createElement(Grid2_default, { xs: 16, padding: 3 }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "messages-container", style: { height: "100%" } }, messages.map(
+      (msgg, i2) => msgg.joined ? /* @__PURE__ */ import_react16.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self, joined: msgg.joined }) : /* @__PURE__ */ import_react16.default.createElement(ChatCard, { key: i2, username: msgg.username, message: msgg.message, self: msgg.self })
+    ))), /* @__PURE__ */ import_react16.default.createElement(Grid2_default, { xs: 16, padding: 3, style: { position: "static", bottom: 0 } }, /* @__PURE__ */ import_react16.default.createElement(TextField_default, { autoComplete: "false", id: "outlined-basic", label: "Send Message", variant: "outlined", fullWidth: true, onChange: (e) => {
       setMessage(e.target.value);
-    }, onKeyDown: sendMessage })));
-  }
-
-  // client/components/OnlineUsers.jsx
-  var import_react16 = __toESM(require_react(), 1);
-  var domain2 = "http://localhost:3000";
-  var socket2 = lookup2(domain2);
-  function OnlineUsers(props) {
-    const [users, setUsers] = import_react16.default.useState([]);
-    import_react16.default.useEffect(() => {
-      socket2.on("join_room", (data, socketid) => {
-        setUsers([...users.filter((usr) => {
-          return usr.id !== socketid;
-        }), { username: data.username, id: socketid }]);
-      });
-      socket2.on("leave_room", (socketid) => {
-        setUsers([...users.filter((plr) => {
-          return plr.id !== socketid;
-        })]);
-      });
-    }, [socket2, users]);
-    return /* @__PURE__ */ import_react16.default.createElement(import_react16.default.Fragment, null, /* @__PURE__ */ import_react16.default.createElement(Box_default, { sx: { flexGrow: 1, marginTop: 10, marginLeft: 1, marginRight: 5, boxShadow: "rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;", width: "15%", height: "75vh", float: "left", overflow: "auto", overflowX: "hidden", padding: 2, minWidth: "250" } }, /* @__PURE__ */ import_react16.default.createElement(Typography_default, { variant: "h5", component: "h1", sx: { flexGrow: 1 } }, "Online Users"), /* @__PURE__ */ import_react16.default.createElement("ul", null, users.map((user, i2) => /* @__PURE__ */ import_react16.default.createElement("li", { key: i2 }, i2, " - ", user.username)))));
+    }, onKeyDown: sendMessage })))))));
   }
 
   // client/components/App.jsx
@@ -46517,7 +46517,7 @@ Please use another name.` : formatMuiErrorMessage(18));
         }
       }));
     }, [theme]);
-    return /* @__PURE__ */ import_react17.default.createElement(import_react17.default.Fragment, null, /* @__PURE__ */ import_react17.default.createElement(ThemeProvider4, { theme: darkTheme }, /* @__PURE__ */ import_react17.default.createElement(CssBaseline_default, null), /* @__PURE__ */ import_react17.default.createElement(Nav, { setMode: (theme2) => updateTheme(theme2), updateName }), /* @__PURE__ */ import_react17.default.createElement(OnlineUsers, null), /* @__PURE__ */ import_react17.default.createElement(ChatRoom, { newusername: username })));
+    return /* @__PURE__ */ import_react17.default.createElement(import_react17.default.Fragment, null, /* @__PURE__ */ import_react17.default.createElement(ThemeProvider4, { theme: darkTheme }, /* @__PURE__ */ import_react17.default.createElement(CssBaseline_default, null), /* @__PURE__ */ import_react17.default.createElement(Nav, { setMode: (theme2) => updateTheme(theme2), updateName }), /* @__PURE__ */ import_react17.default.createElement(ChatRoom, { newusername: username })));
   }
 
   // client/main.jsx

@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline'
 
 import Nav from './Nav.jsx'
 import ChatRoom from './ChatRoom.jsx'
-import OnlineUsers from './OnlineUsers.jsx'
 
 export default function App (props) {
   const [theme, setTheme] = React.useState(false)
@@ -37,7 +36,6 @@ export default function App (props) {
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
         <Nav setMode={(theme) => updateTheme(theme)} updateName={updateName}/>
-        <OnlineUsers/>
         <ChatRoom newusername={username}/>
     </ThemeProvider>
     </>

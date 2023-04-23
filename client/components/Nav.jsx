@@ -46,7 +46,7 @@ export default function Nav (props) {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               StoutBook
             </Typography>
-            <TextField autoComplete='false' id="standard-basic" label="Edit Name" variant="standard" onChange={(e) => { updateName(e.target.value) }} onKeyDown={() => {}} defaultValue={'Anonymous'}/>
+            <TextField size="small" autoComplete='false' id="outlined-basic" label="Edit Name" variant="outlined" onChange={(e) => { updateName(e.target.value) }} onKeyDown={() => {}} defaultValue={'Anonymous'}/>
             {/* <Button color="inherit">LOGIN</Button> */}
           </Toolbar>
         </AppBar>

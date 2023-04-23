@@ -8,6 +8,8 @@ import Grid from '@mui/material/Unstable_Grid2'
 import { io } from 'socket.io-client'
 import ChatCard from './ChatCard'
 
+import OnlineUsers from './OnlineUsers.jsx'
+
 const domain = 'https://laophy.com'
 // const domain = 'http://localhost:3000'
 const socket = io(domain)
@@ -79,24 +81,30 @@ export default function ChatRoom (props) {
 
   return (
     <React.Fragment>
-      <Box sx={{ flexGrow: 1, marginTop: 10, boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;', width: '75%', height: '75vh', float: 'left', overflow: 'auto', overflowX: 'hidden' }} ref={messageContainer}>
-        <Grid container spacing={3} columns={16}>
-          <Grid xs={16} padding={3}>
-            <div className='messages-container' style={{ height: '100%' }}>
-              {
-                messages.map((msgg, i) =>
-                  (msgg.joined
-                    ? <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} joined={msgg.joined}/>
-                    : <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} />)
-                )
-              }
-            </div>
-          </Grid>
-          <Grid xs={16} padding={3} style={{ width: '100%', bottom: 0 }}></Grid>
+      <Grid container spacing={2}>
+        <Grid xs={3}>
+          <OnlineUsers />
         </Grid>
-      </Box>
-      <Grid xs={10} padding={3} style={{ width: '100%', position: 'fixed', bottom: 0, float: 'left' }}>
-        <TextField autoComplete='false' id="outlined-basic" label="Send Message" variant="outlined" fullWidth onChange={(e) => { setMessage(e.target.value) }} onKeyDown={sendMessage} />
+        <Grid xs={9}>
+          <Box sx={{ flexGrow: 1, marginTop: 10, boxShadow: 'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;', width: '100%', height: '85vh', float: 'right', overflow: 'auto', overflowX: 'hidden' }} ref={messageContainer}>
+            <Grid container spacing={3} columns={16}>
+              <Grid xs={16} padding={3}>
+                <div className='messages-container' style={{ height: '100%' }}>
+                  {
+                    messages.map((msgg, i) =>
+                      (msgg.joined
+                        ? <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} joined={msgg.joined} />
+                        : <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} />)
+                    )
+                  }
+                </div>
+              </Grid>
+              <Grid xs={16} padding={3} style={{ position: 'static', bottom: 0 }}>
+                <TextField autoComplete='false' id="outlined-basic" label="Send Message" variant="outlined" fullWidth onChange={(e) => { setMessage(e.target.value) }} onKeyDown={sendMessage} />
+              </Grid>
+            </Grid>
+          </Box>
+        </Grid>
       </Grid>
     </React.Fragment>
   )
