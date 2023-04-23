@@ -9,6 +9,7 @@ import OnlineUsers from './OnlineUsers.jsx'
 
 export default function App (props) {
   const [theme, setTheme] = React.useState(false)
+  const [username, setUsername] = React.useState('Anonymous')
   const [darkTheme, setDarkTheme] = React.useState(createTheme({
     palette: {
       mode: (theme ? 'dark' : 'light')
@@ -17,6 +18,10 @@ export default function App (props) {
 
   const updateTheme = (theme) => {
     setTheme(!theme)
+  }
+
+  const updateName = (name) => {
+    setUsername(name)
   }
 
   React.useEffect(() => {
@@ -31,9 +36,9 @@ export default function App (props) {
     <>
       <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-        <Nav setMode={(theme) => updateTheme(theme)}/>
+        <Nav setMode={(theme) => updateTheme(theme)} updateName={updateName}/>
         <OnlineUsers/>
-        <ChatRoom />
+        <ChatRoom newusername={username}/>
     </ThemeProvider>
     </>
   )

@@ -13,14 +13,20 @@ const domain = 'https://laophy.com'
 const socket = io(domain)
 
 export default function ChatRoom (props) {
+  const { newusername } = props
+
   const [message, setMessage] = React.useState('')
   const [messages, setMessages] = React.useState([])
-  const [username, setUsername] = React.useState('Anonymous')
+  const [username, setUsername] = React.useState('')
   const messageContainer = React.useRef(null)
   const [time, setTime] = React.useState('fetching')
 
   React.useEffect(() => {
-    socket.on('connect', () => setUsername(prompt('Enter a Username')))
+    setUsername(newusername)
+  }, [newusername])
+
+  React.useEffect(() => {
+    socket.on('connect', () => { console.log(`Connected: ID: ${socket.id}`); setUsername(newusername) })
     socket.on('connect_error', () => {
       setTimeout(() => socket.connect(), 3001)
     })
@@ -29,7 +35,9 @@ export default function ChatRoom (props) {
   }, [])
 
   React.useEffect(() => {
-    socket.emit('set_username', { username })
+    if (username !== '') {
+      socket.emit('set_username', { username })
+    }
   }, [username])
 
   const sendMessage = (e) => {
@@ -55,15 +63,18 @@ export default function ChatRoom (props) {
       // alert(data.message)
       setMessages([...messages, { message: data.message, username: data.username, self: false }])
     })
-    socket.on('join_room', (data) => {
+    socket.on('join_room', (data, socketid) => {
       // alert(data.message)
-      setMessages([...messages, { message: `${data.username} has joined the room.`, username: '', self: false, joined: true }])
+      if (!messages.find(msg => (msg.id === socketid))) {
+        setMessages([...messages, { message: `${data.username} has joined the room.`, username: data.username, self: false, joined: true, id: socketid }])
+      }
     })
-    // Not working
-    // socket.on('leave_room', (socketid) => {
-    //   // alert(data.message)
-    //   setMessages([...messages, { message: `${socketid} has left the room.`, username: '', self: false, joined: true }])
-    // })
+    socket.on('leave_room', (socketid) => {
+      const name = messages.find(msg => (msg.id === socketid))
+      if (name) {
+        setMessages([...messages, { message: `${name.username} has left the room.`, username: '', self: false, joined: true, id: socketid }])
+      }
+    })
   }, [socket, messages])
 
   return (

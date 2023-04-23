@@ -6,12 +6,13 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
+import TextField from '@mui/material/TextField'
 
 import Switch from '@mui/material/Switch'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
 export default function Nav (props) {
-  const { setMode } = props
+  const { setMode, updateName } = props
   const [lightmode, setLightmode] = React.useState(false)
 
   const handleChange = (event) => {
@@ -45,7 +46,8 @@ export default function Nav (props) {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               StoutBook
             </Typography>
-            <Button color="inherit">LOGIN</Button>
+            <TextField autoComplete='false' id="standard-basic" label="Edit Name" variant="standard" onChange={(e) => { updateName(e.target.value) }} onKeyDown={() => {}} defaultValue={'Anonymous'}/>
+            {/* <Button color="inherit">LOGIN</Button> */}
           </Toolbar>
         </AppBar>
       </Box>
