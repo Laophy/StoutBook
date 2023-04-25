@@ -14,7 +14,7 @@ const domain = 'https://laophy.com'
 // const domain = 'http://localhost:3000'
 const socket = io(domain)
 
-export default function ChatRoom (props) {
+export default function ChatRoom(props) {
   const { newusername } = props
 
   const [message, setMessage] = React.useState('')
@@ -92,9 +92,9 @@ export default function ChatRoom (props) {
                 <div className='messages-container' style={{ height: '100%' }}>
                   {
                     messages.map((msgg, i) =>
-                      (msgg.joined
-                        ? <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} joined={msgg.joined} />
-                        : <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} />)
+                    (msgg.joined
+                      ? <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} joined={msgg.joined} />
+                      : <ChatCard key={i} username={msgg.username} message={msgg.message} self={msgg.self} />)
                     )
                   }
                 </div>
