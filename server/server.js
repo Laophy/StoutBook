@@ -33,6 +33,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('send_message', (data) => {
+    console.log(`Message sent by (${data.username}): ${data.message}`)
     socket.broadcast.emit('receive_message', data)
   })
 
